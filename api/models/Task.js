@@ -20,10 +20,11 @@ module.exports = {
   },
 
   beforeCreate : function ( values, callback) {
-    Task.count().exec( function(err, num) {
-            if (err) return cb(err);
-            values.typeId = num;
-            callback();
-    });
+    
+    // Task.count().exec( function(err, num) {
+    //         if (err) return cb(err);
+    //         values.typeId = num;
+    //         callback();
+    // });
   }
 };

@@ -6,6 +6,13 @@
  */
 
 module.exports = {
-	
+	create : function (req, res) {
+		User.create( req.allParams, function ( err, user) {
+			if( err){
+				console.log(err);
+				throw err;
+			}
+			res.send(user);
+		});
+	}
 };
-

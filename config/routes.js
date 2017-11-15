@@ -43,11 +43,16 @@ module.exports.routes = {
     action : 'create'
   },
 
-  /*************************** ROLE*******************************************/
-'post /role' : {
-  controller : 'RoleController',
-  action : 'create'
-}
+  'post /role' : {
+    /*************************** ROLE*******************************************/
+    controller : 'RoleController',
+    action : 'create'
+  },
+    /*************************** USER*******************************************/
+  'post /user' : {
+    controller : 'UserController',
+    action : 'create'
+  }
 
   /***************************************************************************
   *                                                                          *

@@ -13,6 +13,6 @@ module.exports = {
 				throw err;
 			}
 			res.send(result);
-		})
+		});
 	}
 };
