@@ -36,10 +36,18 @@ module.exports.routes = {
     view: 'homepage'
   },
 
+  /*************************** TAKS*******************************************/
+
   'post /task' : {
     controller : 'TaskController',
     action : 'create'
-  }
+  },
+
+  /*************************** ROLE*******************************************/
+'post /role' : {
+  controller : 'RoleController',
+  action : 'create'
+}
 
   /***************************************************************************
   *                                                                          *

@@ -10,7 +10,8 @@ module.exports = {
   attributes: {
     typeId : {
       type : "integer",
-      autoincrement : true
+      autoincrement : true,
+      required : true
     },
     taskType : {
       type : "String",
@@ -22,7 +23,7 @@ module.exports = {
     Task.count().exec( function(err, num) {
             if (err) return cb(err);
             values.typeId = num;
-            cb();
-        });
+            callback();
+    });
   }
 };

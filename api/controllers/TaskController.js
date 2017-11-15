@@ -6,6 +6,7 @@
  */
 
 module.exports = {
+
 	create : function ( req,  res) {
 		var task = req.allParams();
 		Task.create( task, function ( err, result) {
@@ -15,4 +16,6 @@ module.exports = {
 				res.send(result);
 		});
 	}
+
+
 };
