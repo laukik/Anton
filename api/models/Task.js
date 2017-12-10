@@ -8,19 +8,34 @@
 module.exports = {
 
   attributes: {
-    typeId : {
-      type : "integer",
-      autoincrement : true,
+    employeeId : {
+      type : 'integer',
       required : true
     },
     taskType : {
       type : "String",
       required : true
+    },
+    workDate : {
+      type : "Date",
+      required : true
+    },
+    description:{
+      type : "String",
+      required : false
+    },
+    status:{
+      type : "String",
+      required : false
+    },
+    area:{
+      type : "String",
+      required : false
     }
   },
 
   beforeCreate : function ( values, callback) {
-    
+
     // Task.count().exec( function(err, num) {
     //         if (err) return cb(err);
     //         values.typeId = num;

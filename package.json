@@ -22,7 +22,10 @@
     "rc": "1.0.1",
     "sails": "~0.12.14",
     "sails-disk": "~0.10.9",
-    "sails-mongo" : "*"
+    "sails-mongo" : "*",
+    "express-react-views" : "*",
+    "react" : "*",
+    "react-dom" : "*"
   },
   "scripts": {
     "debug": "node debug app.js",
