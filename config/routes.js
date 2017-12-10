@@ -42,18 +42,30 @@ module.exports.routes = {
     controller : 'TaskController',
     action : 'create'
   },
-
-  'post /role' : {
     /*************************** ROLE*******************************************/
+  'post /role' : {
     controller : 'RoleController',
     action : 'create'
+  },
+
+  /*************************** ROLE*******************************************/
+  'post /area' : {
+    controller : 'AreaController',
+    action : 'create'
+  },
+  'get /area/show' : {
+    controller : 'AreaController',
+    action : 'show'
+  },
+  'get /area' : {
+    controller : 'AreaController',
+    action : 'show'
   },
     /*************************** USER*******************************************/
   'post /user' : {
     controller : 'UserController',
     action : 'create'
   }
-
   /***************************************************************************
   *                                                                          *
   * Custom routes here...                                                    *

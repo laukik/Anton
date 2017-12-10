@@ -15,6 +15,10 @@ module.exports = {
 				}
 				res.send(result);
 		});
+	},
+
+	search : function (req, res) {
+		
 	}
 
 
