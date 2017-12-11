@@ -33,7 +33,8 @@ module.exports.routes = {
   ***************************************************************************/
 
   '/': {
-    view: 'homepage'
+    controller : 'TaskController',
+    action : 'show'
   },
 
   /*************************** TAKS*******************************************/
@@ -42,13 +43,24 @@ module.exports.routes = {
     controller : 'TaskController',
     action : 'create'
   },
+
+  'get /task' : {
+    controller : 'TaskController',
+    action : 'show'
+  },
+
+  'get /task/show' : {
+    controller : 'TaskController',
+    action : 'show'
+  },
+
     /*************************** ROLE*******************************************/
   'post /role' : {
     controller : 'RoleController',
     action : 'create'
   },
 
-  /*************************** ROLE*******************************************/
+  /*************************** AREA*******************************************/
   'post /area' : {
     controller : 'AreaController',
     action : 'create'
@@ -59,6 +71,19 @@ module.exports.routes = {
   },
   'get /area' : {
     controller : 'AreaController',
+    action : 'show'
+  },
+  /*************************** AREA*******************************************/
+  'post /status' : {
+    controller : 'StatusController',
+    action : 'create'
+  },
+  'get /status/show' : {
+    controller : 'StatusController',
+    action : 'show'
+  },
+  'get /status' : {
+    controller : 'StatusController',
     action : 'show'
   },
     /*************************** USER*******************************************/

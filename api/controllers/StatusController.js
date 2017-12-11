@@ -12,7 +12,17 @@ module.exports = {
 				console.log(err);
 				throw err;
 			}
-			res.send(result);
+			res.redirect('/status');
+		});
+	},
+
+	show: function (req,res) {
+		Status.find().exec( function (err, status){
+			if( err ){
+				throw err;
+			}
+			console.log(status);
+			res.render('status',{ status : status } );
 		});
 	}
 };

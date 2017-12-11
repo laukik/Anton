@@ -31,15 +31,19 @@ module.exports = {
     area:{
       type : "String",
       required : false
+    },
+    taskId : {
+      type : "String",
+      required : false
     }
-  },
-
-  beforeCreate : function ( values, callback) {
-
-    // Task.count().exec( function(err, num) {
-    //         if (err) return cb(err);
-    //         values.typeId = num;
-    //         callback();
-    // });
   }
+
+  // beforeCreate : function ( values, callback) {
+  //
+  //   // Task.count().exec( function(err, num) {
+  //   //         if (err) return cb(err);
+  //   //         values.typeId = num;
+  //   //         callback();
+  //   // });
+  // }
 };
