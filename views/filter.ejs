@@ -30,12 +30,12 @@
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link active" href="/task">
+        <a class="nav-link " href="/task">
           <span class="fa fa-tasks" title="Task" aria-hidden="true"/>
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link " href="/filter">
+        <a class="nav-link active" href="/filter">
           <span class="fa fa-filter" title="Filter" aria-hidden="true"/>
         </a>
       </li>
@@ -55,41 +55,41 @@
     <div class="row">
       <div class="col-lg-4">
         <h1><span class="badge badge-default form form-control form-input">Add New Task </span></h1>
-        <form class="form" action="/task" method="post">
+        <form class="form" action="/filter" method="post">
           <select name = "username" class="combobox form form-control" style="margin-bottom:5px" >
-
+            <option selected="selected" value="" ></option>
             <% for( var i = 0; i < users.length;i++){ %>
               <option value="<%= users[i].username %>" ><%= users[i].username %></option>
             <% } %>
           </select>
           <!-- <input class="form form-control form-input" style="margin-bottom:5px" type="text" required="true" placeholder="Employee ID" name="employeeId" > -->
           <select name = "taskType" class="combobox form form-control" style="margin-bottom:5px" >
-
+            <option selected="selected" value="" ></option>
             <% for( var i = 0; i < tasktypes.length;i++){ %>
-              <option value="<%= tasktypes[i].taskType %>" ><%= tasktypes[i].taskType %></option>
+              <option value="<%= tasktypes[i].taskType %>" > <%= tasktypes[i].taskType %> </option>
             <% } %>
           </select>
-          <!-- <input class="form form-control form-input" style="margin-bottom:5px" type="text" required="true" placeholder="Task Type" name="taskType" > -->
+          <!-- <input class="form form-control form-input" style="margin-bottom:5px" type="text"  placeholder="Task Type" name="taskType" > -->
           <div class='input-group date' id='datetimepicker1' style="margin-bottom:5px" >
-            <input type='text' class="form form-control form-input" required="true" placeholder="Completion Date" name="workDate"/>
+            <input type='text' class="form form-control form-input"  placeholder="Completion Date" name="workDate"/>
             <span class="input-group-addon">
               <span class="fa fa-calendar-plus"></span>
             </span>
           </div>
-          <input class="form form-control form-input"  type="text" style="margin-bottom:5px" required="true"   placeholder="Description" name="description" >
+          <input class="form form-control form-input"  type="text" style="margin-bottom:5px"    placeholder="Description" name="description" >
           <select name = "status" class="combobox form form-control" style="margin-bottom:5px" >
-
+            <option selected="selected" value="" ></option>
             <% for( var i = 0; i < status.length;i++){ %>
               <option value="<%= status[i].status %>" ><%= status[i].status %></option>
             <% } %>
           </select>
           <select name = "area" class="combobox form form-control" style="margin-bottom:5px" >
-          
+            <option selected="selected" value="" ></option>
             <% for( var i = 0; i < areas.length;i++){ %>
               <option value=<%= areas[i].area %> ><%= areas[i].area %></option>
             <% } %>
           </select>
-          <input class="form form-control form-input" style="margin-bottom:5px"  type="text" required="true" placeholder="Defect ID" name="taskId" >
+          <input class="form form-control form-input" style="margin-bottom:5px"  type="text"  placeholder="Defect ID" name="taskId" >
           <button type="submit" style="margin-top:8px" class="form form-control btn btn-success">Submit</button>
         </form>
       </div>

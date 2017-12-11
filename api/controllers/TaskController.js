@@ -44,13 +44,8 @@ module.exports = {
 				});
 			});
 		});
-	},
-
-	filter : function (req, res) {
-		Task.find(req.allParams()).exec(function (err, result) {
-
-		});
-
 	}
+
+
 
 };

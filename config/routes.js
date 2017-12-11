@@ -114,6 +114,17 @@ module.exports.routes = {
   'get /taskType/show' : {
     controller : 'TaskTypeController',
     action : 'show'
+  },
+
+  /********************************************************/
+  'post /filter' : {
+    controller : 'FilterController',
+    action : 'filter'
+  },
+
+  'get /filter' : {
+    controller : 'FilterController',
+    action : 'filter'
   }
 
 
