@@ -7,11 +7,13 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
   <script src="js/dateTime.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
   <link href="styles/open-iconic/font/css/open-iconic-bootstrap.css" rel="stylesheet">
   <link href="https://use.fontawesome.com/releases/v5.0.1/css/all.css" rel="stylesheet">
   <link href="styles/dateTime.css" rel="stylesheet">
   <link href="styles/combo.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker.min.css">
   <body class="container" >
     <ul class="nav nav-tabs">
       <li class="nav-item">
@@ -71,7 +73,8 @@
           </select>
           <!-- <input class="form form-control form-input" style="margin-bottom:5px" type="text" required="true" placeholder="Task Type" name="taskType" > -->
           <div class='input-group date' id='datetimepicker1' style="margin-bottom:5px" >
-            <input type='text' class="form form-control form-input" required="true" placeholder="Completion Date" name="workDate"/>
+            <!-- <input type='text' class="form form-control form-input" required="true" placeholder="Completion Date" name="workDate"/> -->
+            <input class="datepicker form form-control form-input" data-date-format="dd/mm/yyyy" placeholder="Completion Date" name="workDate"/>
             <span class="input-group-addon">
               <span class="fa fa-calendar-plus"></span>
             </span>
@@ -84,7 +87,7 @@
             <% } %>
           </select>
           <select name = "area" class="combobox form form-control" style="margin-bottom:5px" >
-          
+
             <% for( var i = 0; i < areas.length;i++){ %>
               <option value=<%= areas[i].area %> ><%= areas[i].area %></option>
             <% } %>
@@ -129,8 +132,12 @@
     </div>
   </body>
   <script type="text/javascript">
-    $(function () {
-      $('#datetimepicker1').datetimepicker();
-    });
+  // $(function () {
+  //   $('#datetimepicker1').datetimepicker();
+  // });
+  $('.datepicker').datepicker({
+    format: 'mm/dd/yyyy'
+    //startDate: '-3d'
+  });
   </script>
 </html>
