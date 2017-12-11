@@ -63,12 +63,18 @@
             <% } %>
           </select>
           <!-- <input class="form form-control form-input" style="margin-bottom:5px" type="text" required="true" placeholder="Employee ID" name="employeeId" > -->
-          <select name = "taskType" class="combobox form form-control" style="margin-bottom:5px" >
+          <!-- <select name = "taskType" class="combobox form form-control" style="margin-bottom:5px" >
             <option selected="selected" value="" ></option>
             <% for( var i = 0; i < tasktypes.length;i++){ %>
               <option value="<%= tasktypes[i].taskType %>" > <%= tasktypes[i].taskType %> </option>
             <% } %>
-          </select>
+          </select> -->
+          <div class="checkbox form form-control" style="margin-bottom:5px" >
+              <label><input type="checkbox"  selected="selected" value="" name = "taskType" checked > All </label>
+            <% for( var i = 0; i < tasktypes.length;i++){ %>
+              <label><input type="checkbox" value="<%= tasktypes[i].taskType %>" name = "taskType" > <%= tasktypes[i].taskType %> </label>
+            <% } %>
+          </div>
           <!-- <input class="form form-control form-input" style="margin-bottom:5px" type="text"  placeholder="Task Type" name="taskType" > -->
           <div class='input-group date' id='datetimepicker1' style="margin-bottom:5px" >
             <input type='text' class="form form-control form-input"  placeholder="Completion Date" name="workDate"/>
