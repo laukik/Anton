@@ -90,15 +90,31 @@ module.exports.routes = {
   'post /user' : {
     controller : 'UserController',
     action : 'create'
+  },
+  'get /user/show' : {
+    controller : 'UserController',
+    action : 'show'
+  },
+  'get /user' : {
+    controller : 'UserController',
+    action : 'show'
+  },
+  /*************************** TAKS*******************************************/
+
+  'post /taskType' : {
+    controller : 'TaskTypeController',
+    action : 'create'
+  },
+
+  'get /taskType' : {
+    controller : 'TaskTypeController',
+    action : 'show'
+  },
+
+  'get /taskType/show' : {
+    controller : 'TaskTypeController',
+    action : 'show'
   }
-  /***************************************************************************
-  *                                                                          *
-  * Custom routes here...                                                    *
-  *                                                                          *
-  * If a request to a URL doesn't match any of the custom routes above, it   *
-  * is matched against Sails route blueprints. See `config/blueprints.js`    *
-  * for configuration options and examples.                                  *
-  *                                                                          *
-  ***************************************************************************/
+
 
 };

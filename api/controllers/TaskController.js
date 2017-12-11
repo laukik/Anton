@@ -34,9 +34,23 @@ module.exports = {
 					if( err ){
 						throw err;
 					}
-					res.render('task',{ tasks : tasks, areas : areas, status:status } );
+					User.find().exec(function (err, users) {
+						if(err) throw err;
+						TaskType.find().exec(function (err, taskTypes) {
+							if(err) throw err;
+							res.render('task',{ tasks : tasks, areas : areas, status:status, users : users, tasktypes: taskTypes } );
+						});
+					});
 				});
 			});
 		});
+	},
+
+	filter : function (req, res) {
+		Task.find(req.allParams()).exec(function (err, result) {
+
+		});
+
 	}
+
 };

@@ -8,8 +8,8 @@
 module.exports = {
 
   attributes: {
-    employeeId : {
-      type : 'integer',
+    username : {
+      type : 'String',
       required : true
     },
     taskType : {

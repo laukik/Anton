@@ -44,6 +44,11 @@
           <span class="fa fa-user-circle" title="User" aria-hidden="true"/>
         </a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link " href="/taskType">
+          <span class="fa fa-bug" title="Task Type" aria-hidden="true"/>
+        </a>
+      </li>
     </ul>
     <br/>
     <br/>
@@ -51,7 +56,17 @@
       <div class="col-lg-4">
         <h1><span class="badge badge-default form form-control form-input">Add New Task </span></h1>
         <form class="form" action="/task" method="post">
-          <input class="form form-control form-input" style="margin-bottom:5px" type="text" required="true" placeholder="Employee ID" name="employeeId" >
+          <select name = "username" class="combobox form form-control" style="margin-bottom:5px" >
+            <% for( var i = 0; i < users.length;i++){ %>
+              <option value="<%= users[i].username %>" ><%= users[i].username %></option>
+            <% } %>
+          </select>
+          <!-- <input class="form form-control form-input" style="margin-bottom:5px" type="text" required="true" placeholder="Employee ID" name="employeeId" > -->
+          <select name = "taskType" class="combobox form form-control" style="margin-bottom:5px" >
+            <% for( var i = 0; i < tasktypes.length;i++){ %>
+              <option value=<%= tasktypes[i].taskType %> ><%= tasktypes[i].taskType %></option>
+            <% } %>
+          </select>
           <input class="form form-control form-input" style="margin-bottom:5px" type="text" required="true" placeholder="Task Type" name="taskType" >
           <div class='input-group date' id='datetimepicker1' style="margin-bottom:5px" >
             <input type='text' class="form form-control form-input" required="true" placeholder="Completion Date" name="workDate"/>
@@ -81,7 +96,7 @@
           </tr>
             <tr>
               <th>#</th>
-              <th> Employee ID</th>
+              <th> User Name</th>
               <th> Task Type</th>
               <th> Completion Date</th>
               <th> Description</th>
@@ -94,7 +109,7 @@
                 <!-- <span class="badge badge-primary"> -->
                 <tr>
                   <th scope="row"><%= i %></th>
-                  <td><%= tasks[i].employeeId %></td>
+                  <td><%= tasks[i].username %></td>
                   <td><%= tasks[i].taskType %></td>
                   <td><%= tasks[i].workDate %></td>
                   <td><%= tasks[i].description %></td>

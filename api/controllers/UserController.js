@@ -7,12 +7,20 @@
 
 module.exports = {
 	create : function (req, res) {
-		User.create( req.allParams, function ( err, user) {
+		console.log(req.allParams());
+		User.create( req.allParams(), function ( err, user) {
 			if( err){
 				console.log(err);
 				throw err;
 			}
-			res.send(user);
+			res.redirect('/user');
+		});
+	},
+
+	show : function (req, res) {
+		User.find().exec(function (err, result) {
+			if(err) throw err;
+			res.render('user',{ users : result});
 		});
 	}
 };

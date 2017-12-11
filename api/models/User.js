@@ -10,7 +10,8 @@ module.exports = {
   attributes: {
     username : {
       type : "String",
-      required : true
+      required : true,
+      unique : true
     },
     ntnet : {
       type : "String",
@@ -22,38 +23,42 @@ module.exports = {
       required : true,
       unique : true
     },
-    role :{
+    application : {
       type : "String",
       required : true
-    },
-    supervisior : {
-      type : "integer",
-      required : true
-    },
-    password : {
-      type : "String",
-      required : true
-    },
-    beforeCreate : function ( userData, next){
-      bcrypt.hash(userData.password, 20, function(err, hash) {
-        userData.password = hash;
-        next();
-      });
-    },
-    beforeValidate : function (userData, next) {
-      User.find({ "supervisior" : userData.supervisior }).exec( function (err, data) {
-        if( !data ||Object.keys(data).length == 0){
-          if( userData.supervisior != userData.employeeId){
-              userData.supervisior = null;
-          }
-        }
-        Role.find( { "role" : userData.role} ).exec( function (err, roleData) {
-          if( !roleData ||Object.keys(roleData).length == 0){
-              userData.role = null;
-          }
-          next();
-        });
-      });
     }
-  }
+    // role :{
+    //   type : "String",
+    //   required : true
+    // },
+    // supervisior : {
+    //   type : "integer",
+    //   required : true
+    // },
+    // password : {
+    //   type : "String",
+    //   required : true
+    // },
+    // beforeCreate : function ( userData, next){
+    //   bcrypt.hash(userData.password, 20, function(err, hash) {
+    //     userData.password = hash;
+    //     next();
+    //   });
+    // },
+    // beforeValidate : function (userData, next) {
+    //   User.find({ "supervisior" : userData.supervisior }).exec( function (err, data) {
+    //     if( !data ||Object.keys(data).length == 0){
+    //       if( userData.supervisior != userData.employeeId){
+    //           userData.supervisior = null;
+    //       }
+    //     }
+    //     Role.find( { "role" : userData.role} ).exec( function (err, roleData) {
+    //       if( !roleData ||Object.keys(roleData).length == 0){
+    //           userData.role = null;
+    //       }
+    //       next();
+    //     });
+    //   });
+     }
+  
 }

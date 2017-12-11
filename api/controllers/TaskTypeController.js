@@ -12,7 +12,14 @@ module.exports = {
 				console.log(err);
 				throw err;
 			}
-			res.send(result);
+			res.redirect('/taskType');
+		});
+	},
+
+	show : function (req, res) {
+		TaskType.find().exec(function (err, result) {
+			if(err) throw err;
+			res.render('taskType', { tasktypes : result});
 		});
 	}
 };
