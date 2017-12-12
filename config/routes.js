@@ -125,6 +125,11 @@ module.exports.routes = {
   'get /filter' : {
     controller : 'FilterController',
     action : 'filter'
+  },
+
+  'get /userFilter' : {
+    controller : 'FilterController',
+    action : 'userGrouping'
   }
 
 

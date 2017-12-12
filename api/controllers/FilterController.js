@@ -50,5 +50,19 @@ module.exports = {
 				});
 			});
 		});
-	}
+	},
+
+	userGrouping : function (req, res) {
+		console.log("CALL")
+		Task.native(function(err, collection) {
+  		if (err) throw err;
+  		collection.aggregate( [ { $group : {
+          _id : {username : "$username"},
+          count : { "$sum": 1 }
+        }}]).toArray(function (err, results) {
+    		if (err) return res.serverError(err);
+    		return res.ok(results);
+  });
+});
+}
 };
