@@ -13,7 +13,7 @@
 <link href="styles/dateTime.css" rel="stylesheet">
 <link href="styles/combo.css" rel="stylesheet">
 <body class="container" >
-  <ul class="nav nav-tabs">
+  <ul class="nav nav-tabs ">
     <li class="nav-item">
       <a class="nav-link" href="/">
         <span class="oi oi-home" title="Home" aria-hidden="true"/>
@@ -25,7 +25,7 @@
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link active" href="/status">
+      <a class="nav-link" href="/status">
         <span class="oi oi-code" title="Status" aria-hidden="true"/>
       </a>
     </li>
@@ -49,6 +49,16 @@
         <span class="fa fa-bug" title="Task Type" aria-hidden="true"/>
       </a>
     </li>
+    <li class="nav-item active">
+      <a class="nav-link " href="/severity">
+        <span class="fa fa-exclamation-circle" title="Severity" aria-hidden="true"/>
+      </a>
+    </li>
+    <li class="nav-item active">
+      <a class="nav-link " href="/charts">
+        <span class="fa fa-chart-pie" title="Charts" aria-hidden="true"/>
+      </a>
+    </li>
   </ul>
   <br/>
   <br/>
@@ -64,26 +74,21 @@
         </thead>
         <tbody>
 
-          <% for( var i = 0 ; i < status.length; i ++){ %>
-            <!-- <span class="badge badge-primary"> -->
+          <% for( var i = 0 ; i < severity.length; i ++){ %>
             <tr>
               <th scope="row"><%= i %></th>
               <td>
-                <!-- <span class="oi oi-bullhorn" title="icon name" aria-hidden="true"></span> -->
-                <%= status[i].status %>
+                <%= severity[i].severity %>
               </td>
-              <!-- </span> -->
-              <!-- <span class="oi oi-trash" title="icon name" aria-hidden="true" onclick="remove"></span> -->
-              <!-- <br/> -->
             </tr>
             <% } %>
           </tbody>
         </table>
       </div>
       <div class="col-lg-4">
-        <h1><span class="badge badge-default form form-control form-input">Add New Status </span></h1>
-        <form class="form" action="/status" method="post">
-          <input class="form form-control form-input"  type="text" required="true" placeholder="New Status" name="status" >
+        <h1><span class="badge badge-default form form-control form-input">Add New Severity </span></h1>
+        <form class="form" action="/severity" method="post">
+          <input class="form form-control form-input"  type="text" required="true" placeholder="New Severity" name="severity" >
           <button type="submit" style="margin-top:8px" class="form form-control btn btn-success">Submit</button>
         </form>
       </div>
