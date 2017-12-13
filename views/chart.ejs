@@ -1,0 +1,84 @@
+<html>
+<script src="js/jquery-3.2.1.min.js"></script>
+<script src="js/moment.js"></script>
+<script src="js/collapse.js"></script>
+<script src="js/transition.js"></script>
+<script src="js/combo.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+<script src="js/dateTime.js"></script>
+<script src="js/chart.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+<link href="styles/open-iconic/font/css/open-iconic-bootstrap.css" rel="stylesheet">
+<link href="https://use.fontawesome.com/releases/v5.0.1/css/all.css" rel="stylesheet">
+<link href="styles/dateTime.css" rel="stylesheet">
+<link href="styles/combo.css" rel="stylesheet">
+<link href="styles/chart.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker.min.css">
+  <body class="container" >
+    <ul class="nav nav-tabs">
+      <li class="nav-item">
+        <a class="nav-link" href="/">
+          <span class="oi oi-home" title="Home" aria-hidden="true"/>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link " href="/area">
+          <span class="fa fa-compass" title="Area" aria-hidden="true"/>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link " href="/status">
+          <span class="oi oi-code" title="Status" aria-hidden="true"/>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link active" href="/task">
+          <span class="fa fa-tasks" title="Task" aria-hidden="true"/>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link " href="/filter">
+          <span class="fa fa-filter" title="Filter" aria-hidden="true"/>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link " href="/user">
+          <span class="fa fa-user-circle" title="User" aria-hidden="true"/>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link " href="/taskType">
+          <span class="fa fa-bug" title="Task Type" aria-hidden="true"/>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link " href="/severity">
+          <span class="fa fa-exclamation-circle" title="Severity" aria-hidden="true"/>
+        </a>
+      </li>
+      <li class="nav-item ">
+        <a class="nav-link active" href="/charts">
+          <span class="fa fa-chart-pie" title="Charts" aria-hidden="true"/>
+        </a>
+      </li>
+    </ul>
+    <br/>
+    <br/>
+    <div class="row">
+      <div class="card">
+        <div class="col-lg-4">
+          <div class="ct-chart">
+            <script>
+            new Chartist.Pie('.ct-chart', {
+              series: [<%= Object.keys(userData).map((k) => userData[k])  %>],
+              labels:  [<%= Object.keys(userData)  %>]
+            });
+            </script>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,9 +1,9 @@
 /**
- * FilterController
- *
- * @description :: Server-side logic for managing Filters
- * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
- */
+* FilterController
+*
+* @description :: Server-side logic for managing Filters
+* @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
+*/
 
 module.exports = {
 	filter : function (req, res) {
@@ -26,7 +26,7 @@ module.exports = {
 		var whereClause = {};
 		whereClause["workDate"] = criterion;
 		Object.keys(filter).forEach((key) => (filter[key] == null || filter[key] == '' || filter[key] == "" || filter[key] == undefined ) && delete filter[key]);
-				Object.keys(whereClause).forEach((key) => (whereClause[key] == null || whereClause[key] == '' || whereClause[key] == "" || whereClause[key] == undefined ) && delete whereClause[key]);
+		Object.keys(whereClause).forEach((key) => (whereClause[key] == null || whereClause[key] == '' || whereClause[key] == "" || whereClause[key] == undefined ) && delete whereClause[key]);
 		delete filter["fromDate"];
 		delete filter["tillDate"]
 		console.log(filter);
@@ -44,7 +44,10 @@ module.exports = {
 						if(err) throw err;
 						TaskType.find().exec(function (err, taskTypes) {
 							if(err) throw err;
-							res.render('filter',{ tasks : tasks, areas : areas, status:status, users : users, tasktypes: taskTypes } );
+							Severity.find().exec(function (err, severity) {
+								if(err) res.render('404');
+								res.render('filter',{ tasks : tasks, severity : severity,areas : areas, status:status, users : users, tasktypes: taskTypes } );
+							});
 						});
 					});
 				});
@@ -55,14 +58,27 @@ module.exports = {
 	userGrouping : function (req, res) {
 		console.log("CALL")
 		Task.native(function(err, collection) {
-  		if (err) throw err;
-  		collection.aggregate( [ { $group : {
-          _id : {username : "$username"},
-          count : { "$sum": 1 }
-        }}]).toArray(function (err, results) {
-    		if (err) return res.serverError(err);
-    		return res.ok(results);
-  });
-});
-}
+			if (err) throw err;
+			collection.aggregate( [ { $group : {
+				_id : {username : "$username"},
+				count : { "$sum": 1 }
+			}}]).toArray(function (err, results) {
+				if (err) return res.serverError(err);
+				console.log(results);
+				if( results.length > 0){
+					var userData = {};
+					for( var i = 0 ; i < results.length; i++){
+						var username = results[i]["_id"]["username"];
+						var count    = results[i]["count"];;
+						userData[username] = count;
+					}
+					console.log(userData);
+					return res.render('chart',{ userData : userData});
+				}else{
+					return res.render('chart',{ userData : {} });
+				}
+
+			});
+		});
+	}
 };

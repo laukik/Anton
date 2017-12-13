@@ -142,6 +142,13 @@ module.exports.routes = {
   'get /severity' : {
     controller : 'SeverityController',
     action : 'show'
+  },
+
+  /********************************************************/
+
+  'get /charts' : {
+    controller : 'FilterController',
+    action : 'userGrouping'
   }
 
 };

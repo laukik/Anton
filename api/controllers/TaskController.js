@@ -20,25 +20,22 @@ module.exports = {
 
 	show : function (req, res) {
 		Task.find().exec( function (err, tasks){
-			if( err ){
-				throw err;
-			}
+			if(err) res.render('404');
 			console.log(tasks);
 			//We need to fetch the details for
 			//Valid Status and Areas..
 			Area.find().exec( function (err, areas){
-				if( err ){
-					throw err;
-				}
+				if(err) res.render('404');
 				Status.find().exec( function (err, status){
-					if( err ){
-						throw err;
-					}
+					if(err) res.render('404');
 					User.find().exec(function (err, users) {
-						if(err) throw err;
+						if(err) res.render('404');
 						TaskType.find().exec(function (err, taskTypes) {
-							if(err) throw err;
-							res.render('task',{ tasks : tasks, areas : areas, status:status, users : users, tasktypes: taskTypes } );
+							if(err) res.render('404');
+							Severity.find().exec( function (err, severity) {
+									if(err) res.render('404');
+									res.render('task',{ tasks : tasks, areas : areas, severity : severity,status:status, users : users, tasktypes: taskTypes } );
+							});
 						});
 					});
 				});

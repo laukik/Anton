@@ -35,6 +35,10 @@ module.exports = {
     taskId : {
       type : "String",
       required : false
+    },
+    severity : {
+      type : "String",
+      required : true
     }
   }
 
