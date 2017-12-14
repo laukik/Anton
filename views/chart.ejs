@@ -8,6 +8,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
 <script src="js/dateTime.js"></script>
 <script src="js/chart.min.js"></script>
+<script src="js/chartAnimation.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
 <link href="styles/open-iconic/font/css/open-iconic-bootstrap.css" rel="stylesheet">
@@ -34,7 +35,7 @@
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link active" href="/task">
+        <a class="nav-link " href="/task">
           <span class="fa fa-tasks" title="Task" aria-hidden="true"/>
         </a>
       </li>
@@ -67,60 +68,128 @@
     <br/>
     <br/>
     <div class="row">
-      <div class="col-lg-4">
-        <div class="jumbotron">
-          <p> USER DISTRIBUTION </p>
-          <div class="ct-chart" id ="userChart">
-            <script>
-              var label = [];
-              var seriesX = [];
-              <% for( var i = 0 ; i < userData['label'].length ; i++){ %>
-              label.push( "<%= userData['label'][i] %>");
-              <% } %>
-              <% for( var i = 0 ; i < userData['series'].length; i++){ %>
-              seriesX.push( parseInt("<%= userData['series'][i] %>") );
-              <% } %>
-              var data = {
-                series: seriesX
-              };
-              var sum = function(a, b) { return a + b };
-              new Chartist.Pie('#userChart', data,{
-                labelInterpolationFnc: function(value, idx) {
-                  var percentage = Math.round(value / data.series.reduce(sum) * 100) + '%';
-                  return label[idx] + ' ' + percentage;
-                }
-              });
-            </script>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-4">
-        <div class="jumbotron">
-          <div class="ct-chart" id = "sevChart">
-            <script>
-              var labelSev = [];
-              var seriesXSev = [];
-              <% for( var i = 0 ; i < sevData['label'].length ; i++){ %>
-              labelSev.push( "<%= sevData['label'][i] %>");
-              <% } %>
-              <% for( var i = 0 ; i < sevData['series'].length; i++){ %>
-              seriesXSev.push( parseInt("<%= sevData['series'][i] %>") );
-              <% } %>
-              var dataSev = {
-                series: seriesXSev
-              };
-              var sum = function(a, b) { return a + b };
 
-              new Chartist.Pie('#sevChart', dataSev,{
-                labelInterpolationFnc: function(value, idx) {
-                  var percentage = Math.round(value / dataSev.series.reduce(sum) * 100) + '%';
-                  return labelSev[idx] + ' ' + percentage;
-                }
-              });
-            </script>
+      <% if ( Object.keys( userData ).length != 0  ) { %>
+      <div class="col-lg-4">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title" style="text-align: center;margin-top : 6px" >User Distribution </h4>
+            <% for( var i = 0 ; i < userData['label'].length ; i++){ %>
+              <p class="card-text" style="text-align: center">
+                <%= userData['label'][i] %> <span class="badge badge-pill badge-primary"><%= userData['series'][i] %></span>
+              </p>
+            <% } %>
           </div>
+          <div class="ct-chart" id ="userChart"></div>
         </div>
       </div>
+      <% } %>
+
+      <% if ( Object.keys( sevData ).length != 0  ) { %>
+      <div class="col-lg-4">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title" style="text-align: center;margin-top : 6px" >Severity Distribution </h4>
+            <% for( var i = 0 ; i < sevData['label'].length ; i++){ %>
+              <p class="card-text" style="text-align: center">
+                <%= sevData['label'][i] %> <span class="badge badge-primary"><%= sevData['series'][i] %></span>
+              </p>
+            <% } %>
+          </div>
+          <div class="ct-chart" id = "sevChart"></div>
+        </div>
+      </div>
+      <% } %>
+
+      <% if ( Object.keys( sevProdData ).length != 0  ) { %>
+        <div class="col-lg-4">
+          <div class="card">
+            <div class="card-body">
+              <h4 class="card-title" style="text-align: center;margin-top : 6px" >Severity Distribution Production</h4>
+              <% for( var i = 0 ; i < sevProdData['label'].length ; i++){ %>
+                <p class="card-text" style="text-align: center">
+                  <%= sevProdData['label'][i] %> <span class="badge badge-pill badge-primary"><%= sevProdData['series'][i] %></span>
+                </p>
+              <% } %>
+            </div>
+            <div class="ct-chart" id ="sevProdChart"></div>
+          </div>
+        </div>
+      <% } %>
+
     </div>
   </body>
+  <script>
+    /*************  User CHART **************************/
+    var label = [];
+    var seriesX = [];
+    <% for( var i = 0 ; i < userData['label'].length ; i++){ %>
+    label.push( "<%= userData['label'][i] %>");
+    <% } %>
+    <% for( var i = 0 ; i < userData['series'].length; i++){ %>
+    seriesX.push( parseInt("<%= userData['series'][i] %>") );
+    <% } %>
+    var data = {
+      series: seriesX
+    };
+    var sum = function(a, b) { return a + b };
+    var userChart = new Chartist.Pie('#userChart', data,{
+      labelInterpolationFnc: function(value, idx) {
+        var percentage = Math.round(value / data.series.reduce(sum) * 100) + '%';
+        return label[idx] + ' ' + percentage;
+      },
+      donut: true,
+      showLabel: true
+    });
+    showAnimation(userChart);
+
+    /*************  Severity CHART **************************/
+    var labelSev = [];
+    var seriesXSev = [];
+    <% for( var i = 0 ; i < sevData['label'].length ; i++){ %>
+    labelSev.push( "<%= sevData['label'][i] %>");
+    <% } %>
+    <% for( var i = 0 ; i < sevData['series'].length; i++){ %>
+    seriesXSev.push( parseInt("<%= sevData['series'][i] %>") );
+    <% } %>
+    var dataSev = {
+      series: seriesXSev
+    };
+    var sevChart = new Chartist.Pie('#sevChart', dataSev,{
+      labelInterpolationFnc: function(value, idx) {
+        var percentage = Math.round(value / dataSev.series.reduce(sum) * 100) + '%';
+        return labelSev[idx] + ' ' + percentage;
+      },
+      donut: true,
+      showLabel: true
+    }
+  );
+  showAnimation(sevChart);
+
+  /*************  Severity Production CHART **************************/
+  <% if ( Object.keys( sevProdData ).length != 0  ) {%>
+    var labelSevP = [];
+    var seriesXSevP = [];
+    <% for( var i = 0 ; i < sevProdData['label'].length ; i++){ %>
+    labelSev.push( "<%= sevProdData['label'][i] %>");
+    <% } %>
+    <% for( var i = 0 ; i < sevProdData['series'].length; i++){ %>
+    seriesXSev.push( parseInt("<%= sevProdData['series'][i] %>") );
+    <% } %>
+    var dataProdSev = {
+      series: seriesXSevP
+    };
+    var sevProdChart = new Chartist.Pie('#sevProdChart', dataProdSev,{
+      labelInterpolationFnc: function(value, idx) {
+        var percentage = Math.round(value / dataSev.series.reduce(sum) * 100) + '%';
+        return labelSevP[idx] + ' ' + percentage;
+      },
+      donut: true,
+      showLabel: true
+    });
+    showAnimation(sevProdChart);
+  <% }%>
+
+
+  </script>
 </html>

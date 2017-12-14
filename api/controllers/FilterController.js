@@ -55,15 +55,18 @@ module.exports = {
 		});
 	},
 
-	userGrouping : function (req, res) {
-		AggregationService.userChart(function (err, userData) {
+	chartData : function (req, res) {
+		AggregationService.groupByCount( {}, "username", function (err, userData) {
 			if(err) res.render('404',{data : err});;
 			console.log(userData);
-			AggregationService.defectGroupingBySeverity( function (err, sevData) {
+			var match = {'taskType' : "Defect"};
+			AggregationService.groupByCount( match, "severity",function (err, sevData) {
 				if(err) res.render('404',{data : err});;
 				console.log(sevData);
-				res.render('chart',{userData : userData, sevData : sevData});
+				res.render('chart',{userData : userData, sevData : sevData, sevProdData : {}});
 			});
 		});
-	}
+	},
+
+
 };

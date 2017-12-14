@@ -127,10 +127,10 @@ module.exports.routes = {
     action : 'filter'
   },
 
-  'get /userFilter' : {
-    controller : 'FilterController',
-    action : 'userGrouping'
-  },
+  // 'get /userFilter' : {
+  //   controller : 'FilterController',
+  //   action : 'userGrouping'
+  // },
 
   /********************************************************/
 
@@ -148,11 +148,7 @@ module.exports.routes = {
 
   'get /charts' : {
     controller : 'FilterController',
-    action : 'userGrouping'
-  },
-
-  'get /charts/dgs' : {
-    controller : 'FilterController',
-    action : 'defectGroupingBySev'
+    action : 'chartData'
   }
+
 };
