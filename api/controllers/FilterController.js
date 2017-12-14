@@ -68,5 +68,61 @@ module.exports = {
 		});
 	},
 
+	chartFilter : function (req, res) {
+		var filter = req.allParams();
+		console.log("START");
+		console.log(filter);
+		var fromDate = filter["fromDate"];
+		var tillDate = filter["tillDate"];
+		var criterion = {};
+		Object.keys(filter).forEach((key) => (filter[key] == null || filter[key] == '' || filter[key] == "" || filter[key] == undefined ) && delete filter[key]);
+		//format fromDate
+		if( fromDate ){
+			var dater = fromDate.split("/");
+			var from = new Date( dater[2], dater[1] - 1, dater[0]);
+			criterion["$gte"] = from;
+		}
+		if( tillDate){
+			var dater = tillDate.split("/");
+			var till = new Date( dater[2], dater[1] - 1, dater[0]);
+			criterion["$lte"] = till;
+		}
+		//var whereClause = {};
+		filter["workDate"] = criterion;
+		Object.keys(filter).forEach((key) => (filter[key] == null || filter[key] == '' || filter[key] == "" || filter[key] == undefined ) && delete filter[key]);
+		//Object.keys(whereClause).forEach((key) => (whereClause[key] == null || whereClause[key] == '' || whereClause[key] == "" || whereClause[key] == undefined ) && delete whereClause[key]);
+		delete filter["fromDate"];
+		delete filter["tillDate"];
+		console.log("FILTER.. ");
+		console.log(filter);
+		filter = AggregationService.convertArrayIntoIn(filter);
+		console.log(" NEW FILTER.. ");
+		console.log(filter);
+		AggregationService.groupByCount( filter, "severity" , function( err, tasks){
+			console.log(tasks);
+			if(err) throw err;
+			Area.find().exec( function (err, areas){
+				if( err ){
+					throw err;
+				}
+				Status.find().exec( function (err, status){
+					if( err ){
+						throw err;
+					}
+					User.find().exec(function (err, users) {
+						if(err) throw err;
+						TaskType.find().exec(function (err, taskTypes) {
+							if(err) throw err;
+							Severity.find().exec(function (err, severity) {
+								if(err) res.render('404');
+								res.render('chartFilter',{ chartData : tasks, severity : severity,areas : areas, status:status, users : users, tasktypes: taskTypes } );
+							});
+						});
+					});
+				});
+			});
+		});
+	}
+
 
 };

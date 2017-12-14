@@ -127,11 +127,15 @@ module.exports.routes = {
     action : 'filter'
   },
 
-  // 'get /userFilter' : {
-  //   controller : 'FilterController',
-  //   action : 'userGrouping'
-  // },
+  'get /chartFilter' : {
+    controller : 'FilterController',
+    action : 'chartFilter'
+  },
 
+  'post /chartFilter' : {
+    controller : 'FilterController',
+    action : 'chartFilter'
+  },
   /********************************************************/
 
   'post /severity' : {

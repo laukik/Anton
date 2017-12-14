@@ -34,8 +34,25 @@ var AggregationService = {
         }
       });
     });
+  },
+
+  convertArrayIntoIn : function ( filter) {
+    var convertedFilter = {};
+    var keySet = Object.keys(filter);
+    for( var i = 0 ; i < keySet.length; i++){
+      var key = keySet[i];
+      var value = filter[key];
+      if( value instanceof Array   ){
+        var newValue = {};
+        newValue["$in"] = value;
+        convertedFilter[key] = newValue;
+      }else{
+        convertedFilter[key] = value;
+      }
+    }
+    return convertedFilter;
   }
-  
+
 };
 
 
