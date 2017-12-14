@@ -149,6 +149,10 @@ module.exports.routes = {
   'get /charts' : {
     controller : 'FilterController',
     action : 'userGrouping'
-  }
+  },
 
+  'get /charts/dgs' : {
+    controller : 'FilterController',
+    action : 'defectGroupingBySev'
+  }
 };

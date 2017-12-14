@@ -56,33 +56,13 @@ module.exports = {
 	},
 
 	userGrouping : function (req, res) {
-		console.log("CALL")
-		Task.native(function(err, collection) {
-			if (err) throw err;
-			collection.aggregate( [ { $group : {
-				_id : {username : "$username"},
-				count : { "$sum": 1 }
-			}}]).toArray(function (err, results) {
-				if (err) return res.serverError(err);
-				console.log(results);
-				if( results.length > 0){
-					var userData = {};
-					var userDataLabel = [];
-					var userDataSeries = [];
-					for( var i = 0 ; i < results.length; i++){
-						var username = results[i]["_id"]["username"];
-						var count    = results[i]["count"];;
-						userDataLabel.push(username);
-						userDataSeries.push(count);
-					}
-					userData['label']  = userDataLabel;
-					userData['series'] = userDataSeries;
-					console.log(userData);
-					return res.render('chart',{ userData : userData});
-				}else{
-					return res.render('chart',{ userData : userData });
-				}
-
+		AggregationService.userChart(function (err, userData) {
+			if(err) res.render('404',{data : err});;
+			console.log(userData);
+			AggregationService.defectGroupingBySeverity( function (err, sevData) {
+				if(err) res.render('404',{data : err});;
+				console.log(sevData);
+				res.render('chart',{userData : userData, sevData : sevData});
 			});
 		});
 	}

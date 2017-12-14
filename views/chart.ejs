@@ -68,27 +68,55 @@
     <br/>
     <div class="row">
       <div class="col-lg-4">
-        <div class="">
-          <div class="ct-chart">
+        <div class="jumbotron">
+          <p> USER DISTRIBUTION </p>
+          <div class="ct-chart" id ="userChart">
             <script>
-            var label = [];
-            var seriesX = [];
-            <% for( var i = 0 ; i < userData['label'].length ; i++){ %>
-            label.push( "<%= userData['label'][i] %>");
-            <% } %>
-            <% for( var i = 0 ; i < userData['series'].length; i++){ %>
-            seriesX.push( "<%= userData['series'][i] %>" );
-            <% } %>
-            var data = {
-              series: seriesX
-            };
-            var sum = function(a, b) { return a + b };
-            new Chartist.Pie('.ct-chart', data,{
-              labelInterpolationFnc: function(value, idx) {
-                var percentage = Math.round(value / data.series.reduce(sum) * 100) + '%';
-                return label[idx] + ' ' + percentage;
-              }
-            });
+              var label = [];
+              var seriesX = [];
+              <% for( var i = 0 ; i < userData['label'].length ; i++){ %>
+              label.push( "<%= userData['label'][i] %>");
+              <% } %>
+              <% for( var i = 0 ; i < userData['series'].length; i++){ %>
+              seriesX.push( parseInt("<%= userData['series'][i] %>") );
+              <% } %>
+              var data = {
+                series: seriesX
+              };
+              var sum = function(a, b) { return a + b };
+              new Chartist.Pie('#userChart', data,{
+                labelInterpolationFnc: function(value, idx) {
+                  var percentage = Math.round(value / data.series.reduce(sum) * 100) + '%';
+                  return label[idx] + ' ' + percentage;
+                }
+              });
+            </script>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="jumbotron">
+          <div class="ct-chart" id = "sevChart">
+            <script>
+              var labelSev = [];
+              var seriesXSev = [];
+              <% for( var i = 0 ; i < sevData['label'].length ; i++){ %>
+              labelSev.push( "<%= sevData['label'][i] %>");
+              <% } %>
+              <% for( var i = 0 ; i < sevData['series'].length; i++){ %>
+              seriesXSev.push( parseInt("<%= sevData['series'][i] %>") );
+              <% } %>
+              var dataSev = {
+                series: seriesXSev
+              };
+              var sum = function(a, b) { return a + b };
+
+              new Chartist.Pie('#sevChart', dataSev,{
+                labelInterpolationFnc: function(value, idx) {
+                  var percentage = Math.round(value / dataSev.series.reduce(sum) * 100) + '%';
+                  return labelSev[idx] + ' ' + percentage;
+                }
+              });
             </script>
           </div>
         </div>
