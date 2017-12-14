@@ -67,13 +67,27 @@
     <br/>
     <br/>
     <div class="row">
-      <div class="card">
-        <div class="col-lg-4">
+      <div class="col-lg-4">
+        <div class="">
           <div class="ct-chart">
             <script>
-            new Chartist.Pie('.ct-chart', {
-              series: [<%= Object.keys(userData).map((k) => userData[k])  %>],
-              labels:  [<%= Object.keys(userData)  %>]
+            var label = [];
+            var seriesX = [];
+            <% for( var i = 0 ; i < userData['label'].length ; i++){ %>
+            label.push( "<%= userData['label'][i] %>");
+            <% } %>
+            <% for( var i = 0 ; i < userData['series'].length; i++){ %>
+            seriesX.push( "<%= userData['series'][i] %>" );
+            <% } %>
+            var data = {
+              series: seriesX
+            };
+            var sum = function(a, b) { return a + b };
+            new Chartist.Pie('.ct-chart', data,{
+              labelInterpolationFnc: function(value, idx) {
+                var percentage = Math.round(value / data.series.reduce(sum) * 100) + '%';
+                return label[idx] + ' ' + percentage;
+              }
             });
             </script>
           </div>

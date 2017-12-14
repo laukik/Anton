@@ -67,15 +67,20 @@ module.exports = {
 				console.log(results);
 				if( results.length > 0){
 					var userData = {};
+					var userDataLabel = [];
+					var userDataSeries = [];
 					for( var i = 0 ; i < results.length; i++){
 						var username = results[i]["_id"]["username"];
 						var count    = results[i]["count"];;
-						userData[username] = count;
+						userDataLabel.push(username);
+						userDataSeries.push(count);
 					}
+					userData['label']  = userDataLabel;
+					userData['series'] = userDataSeries;
 					console.log(userData);
 					return res.render('chart',{ userData : userData});
 				}else{
-					return res.render('chart',{ userData : {} });
+					return res.render('chart',{ userData : userData });
 				}
 
 			});
