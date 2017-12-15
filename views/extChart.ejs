@@ -97,8 +97,7 @@
             </div>
             <!-- task type selection -->
             <div class="card checkbox form form-control jumbotron" style="margin-bottom:5px" >
-              <p class='text-align: center;margin-top : 6px'>Task Type</p>
-              <br>
+              <label class="form form-control badge badge-default"> <span class="fa fa-bug" title="Area" aria-hidden="true"/> Task Type </label>
               <label><input type="checkbox"  selected="selected" value="" name = "taskType" checked > All </label>
               <% for( var i = 0; i < tasktypes.length;i++){ %>
                 <label><input type="checkbox" value="<%= tasktypes[i].taskType %>" name = "taskType" > <%= tasktypes[i].taskType %> </label>
@@ -106,7 +105,7 @@
             </div>
             <!-- status selection -->
             <div class="card checkbox form form-control jumbotron" style="margin-bottom:5px" >
-              <label > <span class="fa fa-code" title="status" aria-hidden="true"/> Status </label>
+              <label class="form form-control badge badge-default"> <span class=" fa fa-code" title="status" aria-hidden="true"/> Status </label>
               <br>
               <label><input type="checkbox"  selected="selected" value="" name = "status" checked > All </label>
               <% for( var i = 0; i < status.length;i++){ %>
@@ -115,7 +114,7 @@
             </div>
             <!-- Severity Selection -->
             <div class="card checkbox form form-control jumbotron" style="margin-bottom:5px" >
-              <label > <span class="fa fa-compass" title="Area" aria-hidden="true"/> Severity </label>
+              <label class="form form-control badge badge-default"> <span class="fa fa-compass" title="Area" aria-hidden="true"/> Severity </label>
               <br>
               <label><input type="checkbox"  selected="selected" value="" name = "severity" checked > All </label>
               <% for( var i = 0; i < tasktypes.length;i++){ %>
@@ -126,7 +125,7 @@
           <div class="col-lg-6">
             <!-- user selection -->
             <div class="card checkbox form form-control jumbotron" style="margin-bottom:5px" >
-              <label > <span class="fa fa-user-circle" title="Area" aria-hidden="true"/> User </label>
+              <label class="form form-control badge badge-default" > <span class="fa fa-user-circle" title="Area" aria-hidden="true"/> User </label>
               <br>
               <label><input type="checkbox"  selected="selected" value="" name = "username" checked > All </label>
               <% for( var i = 0; i < users.length;i++){ %>
@@ -155,7 +154,7 @@
             </div>
             <!-- Area Selection -->
             <div class="card checkbox form form-control jumbotron" style="margin-bottom:5px" >
-              <label > <span class="fa fa-compass" title="Area" aria-hidden="true"/> Area </label>
+              <label class="form form-control badge badge-default" > <span class="fa fa-compass" title="Area" aria-hidden="true"/> Area </label>
               <br>
               <label><input type="checkbox"  selected="selected" value="" name = "area" checked > All </label>
               <% for( var i = 0; i < tasktypes.length;i++){ %>
