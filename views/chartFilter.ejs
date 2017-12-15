@@ -17,6 +17,12 @@
 <link href="styles/combo.css" rel="stylesheet">
 <link href="styles/chart.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker.min.css">
+<style media="screen">
+#chartX {
+border-radius: 100px;
+padding-top: 10px;
+}
+</style>
 <body class="container" >
   <ul class="nav nav-tabs">
     <li class="nav-item">
@@ -60,7 +66,7 @@
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link " href="/charts">
+      <a class="nav-link " href="/chartFilter">
         <span class="fa fa-chart-pie" title="Charts" aria-hidden="true"/>
       </a>
     </li>
@@ -74,7 +80,17 @@
         <button type="submit" style="margin-bottom:5px" class="form form-control btn btn-success"> Filter
           <span class="fa fa-filter" title="Filter" aria-hidden="true"/>
         </button>
-        <input class="form form-control form-input" style="margin-bottom:5px"  type="text"  placeholder="Defect ID" name="taskId" >
+        <!-- <input class="form form-control form-input" style="margin-bottom:5px"  type="text"  placeholder="Defect ID" name="taskId" > -->
+        <div class="card">
+          <p class='text-align: center;margin-top : 6px'>Grouping Criterion</p>
+          <select name = "groupBy" class="card combobox form form-control" style="margin-bottom:5px" >
+              <!-- <option value="" ></option> -->
+              <option value="severity" > Severity</option>
+              <option value="taskType" > Task Type</option>
+              <option value="status" > Status </option>
+              <option value="area" > Area</option>
+          </select>
+        </div>
         <div class="card checkbox form form-control" style="margin-bottom:5px" >
           <label > <span class="fa fa-user-circle" title="Area" aria-hidden="true"/> User </label>
           <br>
@@ -141,23 +157,28 @@
                   </button>
                 </form>
               </div>
-              <div class="col-lg-8">
+              <div class="col-lg-3">
+
+              </div>
+              <div class="col-lg-6">
                 <% if ( Object.keys( chartData ).length != 0  ) { %>
-                <div class="col-lg-4">
-                  <div class="card">
-                    <div class="card-body">
+                <div class="">
+                  <div class=" ct-chart" id = "chartX">
+                    <div class="card-body ">
                       <h4 class="card-title" style="text-align: center;margin-top : 6px" > Distribution </h4>
                       <% for( var i = 0 ; i < chartData['label'].length ; i++){ %>
                         <p class="card-text" style="text-align: center">
+                          <strong>
                           <%= chartData['label'][i] %> <span class="badge badge-primary"><%= chartData['series'][i] %></span>
                         </p>
                       <% } %>
                     </div>
-                    <div class="ct-chart" id = "chartX"></div>
+                    <!-- <div class="ct-chart" id = "chartX"></div> -->
                   </div>
                 </div>
                 <% } %>
               </div>
+
 
               </div>
   </body>
@@ -182,11 +203,13 @@
         },
         donut: true,
         showLabel: true
+
       });
       showAnimation(chart);
     <% }%>
     $('.datepicker').datepicker({
       format: 'dd/mm/yyyy'
-    }).datepicker('setDate', new Date());
+    });
+    //.datepicker('setDate', new Date());
   </script>
 </html>

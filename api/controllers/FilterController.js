@@ -88,9 +88,14 @@ module.exports = {
 			criterion["$lte"] = till;
 		}
 		//var whereClause = {};
-		filter["workDate"] = criterion;
+		if( Object.keys( criterion ).length != 0){
+					filter["workDate"] = criterion;
+		}
 		Object.keys(filter).forEach((key) => (filter[key] == null || filter[key] == '' || filter[key] == "" || filter[key] == undefined ) && delete filter[key]);
+		var group = filter['groupBy'];
+		if( group  ==undefined) group = 'severity';
 		//Object.keys(whereClause).forEach((key) => (whereClause[key] == null || whereClause[key] == '' || whereClause[key] == "" || whereClause[key] == undefined ) && delete whereClause[key]);
+		delete filter["groupBy"];
 		delete filter["fromDate"];
 		delete filter["tillDate"];
 		console.log("FILTER.. ");
@@ -98,7 +103,7 @@ module.exports = {
 		filter = AggregationService.convertArrayIntoIn(filter);
 		console.log(" NEW FILTER.. ");
 		console.log(filter);
-		AggregationService.groupByCount( filter, "severity" , function( err, tasks){
+		AggregationService.groupByCount( filter, group , function( err, tasks){
 			console.log(tasks);
 			if(err) throw err;
 			Area.find().exec( function (err, areas){
