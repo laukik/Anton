@@ -98,7 +98,7 @@ padding-top: 10px;
           <% for( var i = 0; i < users.length;i++){ %>
             <label><input type="checkbox" value="<%= users[i].username %>" name = "username" > <%= users[i].username %> </label>
             <% } %>
-          </div>
+        </div>
           <div class="card checkbox form form-control" style="margin-bottom:5px" >
             <label > <span class="fa fa-check-square" title="Task Type" aria-hidden="true"/> Task Type </label>
             <br>
@@ -106,7 +106,7 @@ padding-top: 10px;
             <% for( var i = 0; i < tasktypes.length;i++){ %>
               <label><input type="checkbox" value="<%= tasktypes[i].taskType %>" name = "taskType" > <%= tasktypes[i].taskType %> </label>
               <% } %>
-            </div>
+          </div>
             <div class="card jumbotron">
               <p class="lead"> Select Completion Date Range</p>
               <label> From Date</label>
@@ -125,7 +125,6 @@ padding-top: 10px;
                   <span class="fa fa-calendar-minus"></span>
                 </span>
               </div>
-
             </div>
 
             <div class="card checkbox form form-control" style="margin-bottom:5px" >
@@ -135,30 +134,27 @@ padding-top: 10px;
               <% for( var i = 0; i < status.length;i++){ %>
                 <label><input type="checkbox" value="<%= status[i].status %>" name = "status" > <%= status[i].status %> </label>
                 <% } %>
-              </div>
-              <div class="card checkbox form form-control" style="margin-bottom:5px" >
+            </div>
+            <div class="card checkbox form form-control" style="margin-bottom:5px" >
                 <label > <span class="fa fa-compass" title="Area" aria-hidden="true"/> Area </label>
                 <br>
                 <label><input type="checkbox"  selected="selected" value="" name = "area" checked > All </label>
                 <% for( var i = 0; i < tasktypes.length;i++){ %>
                   <label><input type="checkbox" value="<%= areas[i].area %>" name = "area" > <%= areas[i].area %> </label>
                   <% } %>
-                </div>
-                <div class="card checkbox form form-control" style="margin-bottom:5px" >
-                  <label > <span class="fa fa-compass" title="Area" aria-hidden="true"/> Severity </label>
-                  <br>
-                  <label><input type="checkbox"  selected="selected" value="" name = "severity" checked > All </label>
-                  <% for( var i = 0; i < tasktypes.length;i++){ %>
-                    <label><input type="checkbox" value="<%= severity[i].severity %>" name = "severity" > <%= severity[i].severity %> </label>
-                    <% } %>
-                  </div>
+            </div>
+            <div class="card checkbox form form-control" style="margin-bottom:5px" >
+              <label > <span class="fa fa-compass" title="Area" aria-hidden="true"/> Severity </label>
+              <br>
+              <label><input type="checkbox"  selected="selected" value="" name = "severity" checked > All </label>
+              <% for( var i = 0; i < tasktypes.length;i++){ %>
+                <label><input type="checkbox" value="<%= severity[i].severity %>" name = "severity" > <%= severity[i].severity %> </label>
+              <% } %>
+            </div>
                   <button type="submit" style="margin-top:8px" class="form form-control btn btn-success"> Filter
                     <span class="fa fa-filter" title="Filter" aria-hidden="true"/>
                   </button>
                 </form>
-              </div>
-              <div class="col-lg-3">
-
               </div>
               <div class="col-lg-6">
                 <% if ( Object.keys( chartData ).length != 0  ) { %>

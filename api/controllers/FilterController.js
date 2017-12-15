@@ -120,7 +120,7 @@ module.exports = {
 							if(err) throw err;
 							Severity.find().exec(function (err, severity) {
 								if(err) res.render('404');
-								res.render('chartFilter',{ chartData : tasks, severity : severity,areas : areas, status:status, users : users, tasktypes: taskTypes } );
+								res.render('extChart',{ chartData : tasks, severity : severity,areas : areas, status:status, users : users, tasktypes: taskTypes } );
 							});
 						});
 					});

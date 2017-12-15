@@ -1,0 +1,226 @@
+<html>
+  <script src="js/jquery-3.2.1.min.js"></script>
+  <script src="js/moment.js"></script>
+  <script src="js/collapse.js"></script>
+  <script src="js/transition.js"></script>
+  <script src="js/combo.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+  <script src="js/dateTime.js"></script>
+  <script src="js/chart.min.js"></script>
+  <script src="js/chartAnimation.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+  <link href="styles/open-iconic/font/css/open-iconic-bootstrap.css" rel="stylesheet">
+  <link href="https://use.fontawesome.com/releases/v5.0.1/css/all.css" rel="stylesheet">
+  <link href="styles/dateTime.css" rel="stylesheet">
+  <link href="styles/combo.css" rel="stylesheet">
+  <link href="styles/chart.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker.min.css">
+  <style media="screen">
+  #chartX {
+    border-radius: 100px;
+    padding-top: 10px;
+  }
+  </style>
+  <body class="container" >
+  <ul class="nav nav-tabs">
+    <li class="nav-item">
+      <a class="nav-link" href="/">
+        <span class="oi oi-home" title="Home" aria-hidden="true"/>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link " href="/area">
+        <span class="fa fa-compass" title="Area" aria-hidden="true"/>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link " href="/status">
+        <span class="oi oi-code" title="Status" aria-hidden="true"/>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link " href="/task">
+        <span class="fa fa-tasks" title="Task" aria-hidden="true"/>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link active" href="/filter">
+        <span class="fa fa-filter" title="Filter" aria-hidden="true"/>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link " href="/user">
+        <span class="fa fa-user-circle" title="User" aria-hidden="true"/>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link " href="/taskType">
+        <span class="fa fa-bug" title="Task Type" aria-hidden="true"/>
+      </a>
+    </li>
+    <li class="nav-item active">
+      <a class="nav-link " href="/severity">
+        <span class="fa fa-exclamation-circle" title="Severity" aria-hidden="true"/>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link " href="/chartFilter">
+        <span class="fa fa-chart-pie" title="Charts" aria-hidden="true"/>
+      </a>
+    </li>
+  </ul>
+  <br/>
+  <br/>
+  <div class="row">
+    <div class="col-lg-6">
+      <h1><span class="badge badge-default form form-control form-input">Task Filters </span></h1>
+      <form class="form" action="/chartFilter" method="post">
+      <!-- filter Data -->
+        <div class="row">
+          <div class="col-lg-6">
+            <!-- button for filter -->
+            <button type="submit" style="margin-bottom:5px" class="form form-control btn btn-success"> Filter
+              <span class="fa fa-filter" title="Filter" aria-hidden="true"/>
+            </button>
+            <!-- group selection -->
+            <div class="card jumbotron">
+              <p class='text-align: center;margin-top : 1px'>Grouping Criterion</p>
+              <select name = "groupBy" class="card combobox form form-control" style="margin-bottom:1px" >
+                  <!-- <option value="" ></option> -->
+                  <option value="severity" > Severity</option>
+                  <option value="taskType" > Task Type</option>
+                  <option value="status" > Status </option>
+                  <option value="area" > Area</option>
+              </select>
+            </div>
+            <!-- task type selection -->
+            <div class="card checkbox form form-control jumbotron" style="margin-bottom:5px" >
+              <p class='text-align: center;margin-top : 6px'>Task Type</p>
+              <br>
+              <label><input type="checkbox"  selected="selected" value="" name = "taskType" checked > All </label>
+              <% for( var i = 0; i < tasktypes.length;i++){ %>
+                <label><input type="checkbox" value="<%= tasktypes[i].taskType %>" name = "taskType" > <%= tasktypes[i].taskType %> </label>
+                <% } %>
+            </div>
+            <!-- status selection -->
+            <div class="card checkbox form form-control jumbotron" style="margin-bottom:5px" >
+              <label > <span class="fa fa-code" title="status" aria-hidden="true"/> Status </label>
+              <br>
+              <label><input type="checkbox"  selected="selected" value="" name = "status" checked > All </label>
+              <% for( var i = 0; i < status.length;i++){ %>
+                <label><input type="checkbox" value="<%= status[i].status %>" name = "status" > <%= status[i].status %> </label>
+                <% } %>
+            </div>
+            <!-- Severity Selection -->
+            <div class="card checkbox form form-control jumbotron" style="margin-bottom:5px" >
+              <label > <span class="fa fa-compass" title="Area" aria-hidden="true"/> Severity </label>
+              <br>
+              <label><input type="checkbox"  selected="selected" value="" name = "severity" checked > All </label>
+              <% for( var i = 0; i < tasktypes.length;i++){ %>
+                <label><input type="checkbox" value="<%= severity[i].severity %>" name = "severity" > <%= severity[i].severity %> </label>
+              <% } %>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <!-- user selection -->
+            <div class="card checkbox form form-control jumbotron" style="margin-bottom:5px" >
+              <label > <span class="fa fa-user-circle" title="Area" aria-hidden="true"/> User </label>
+              <br>
+              <label><input type="checkbox"  selected="selected" value="" name = "username" checked > All </label>
+              <% for( var i = 0; i < users.length;i++){ %>
+                <label><input type="checkbox" value="<%= users[i].username %>" name = "username" > <%= users[i].username %> </label>
+              <% } %>
+            </div>
+            <!-- Date selection -->
+            <div class="card jumbotron">
+              <p class="lead"> Select Completion Date Range</p>
+              <label> From Date</label>
+              <div class='input-group date' id='datetimepicker1' style="margin-bottom:5px" >
+                <!-- <input type='text' class="form form-control form-input" required="true" placeholder="Completion Date" name="workDate"/> -->
+                <input class="datepicker form form-control form-input" data-date-format="dd/mm/yyyy" placeholder="From Date" name="fromDate"/>
+                <span class="input-group-addon">
+                  <span class="fa fa-calendar-plus"></span>
+                </span>
+              </div>
+              <label> Till Date</label>
+              <div class='input-group date' id='datetimepicker2' style="margin-bottom:5px" >
+                <!-- <input type='text' class="form form-control form-input" required="true" placeholder="Completion Date" name="workDate"/> -->
+                <input class="datepicker form form-control form-input" data-date-format="dd/mm/yyyy" placeholder="To Date" name="tillDate"/>
+                <span class="input-group-addon">
+                  <span class="fa fa-calendar-minus"></span>
+                </span>
+              </div>
+            </div>
+            <!-- Area Selection -->
+            <div class="card checkbox form form-control jumbotron" style="margin-bottom:5px" >
+              <label > <span class="fa fa-compass" title="Area" aria-hidden="true"/> Area </label>
+              <br>
+              <label><input type="checkbox"  selected="selected" value="" name = "area" checked > All </label>
+              <% for( var i = 0; i < tasktypes.length;i++){ %>
+                <label><input type="checkbox" value="<%= areas[i].area %>" name = "area" > <%= areas[i].area %> </label>
+              <% } %>
+            </div>
+            <!-- Button Again -->
+            <button type="submit" style="margin-top:8px" class="form form-control btn btn-success"> Filter
+              <span class="fa fa-filter" title="Filter" aria-hidden="true"/>
+            </button>
+          </div>
+        </div>
+    </div>
+    <div class="col-lg-6">
+      <div class="row">
+        <% if ( Object.keys( chartData ).length != 0  ) { %>
+          <div class="col-lg-8">
+            <div class=" ct-chart" id = "chartX">
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <!-- details Section  -->
+            <div class="card-body ">
+              <h4 class="card-title" style="margin-top : 6px" > Distribution </h4>
+              <% for( var i = 0 ; i < chartData['label'].length ; i++){ %>
+                <p class="card-text" style="">
+
+                  <%= chartData['label'][i] %> <span class="badge badge-primary"><%= chartData['series'][i] %></span>
+                </p>
+              <% } %>
+            </div>
+          </div>
+        <% } %>
+      </div>
+    </div>
+  </div>
+
+  </body>
+  <script type="text/javascript">
+    <% if ( Object.keys( chartData ).length != 0  ) {%>
+      var labelSev = [];
+      var seriesXSev = [];
+      <% for( var i = 0 ; i < chartData['label'].length ; i++){ %>
+      labelSev.push( "<%= chartData['label'][i] %>");
+      <% } %>
+      <% for( var i = 0 ; i < chartData['series'].length; i++){ %>
+      seriesXSev.push( parseInt("<%= chartData['series'][i] %>") );
+      <% } %>
+      var dataProdSev = {
+        series: seriesXSev
+      };
+      var sum = function (a , b) { return a + b};
+      var chart = new Chartist.Pie('#chartX', dataProdSev,{
+        labelInterpolationFnc: function(value, idx) {
+          var percentage = Math.round(value / dataProdSev.series.reduce(sum) * 100) + '%';
+          return labelSev[idx] + ' ' + percentage;
+        },
+        donut: true,
+        showLabel: true
+      });
+      showAnimation(chart);
+    <% }%>
+    $('.datepicker').datepicker({
+      format: 'dd/mm/yyyy'
+    });
+    //.datepicker('setDate', new Date());
+  </script>
+</html>
