@@ -20,7 +20,10 @@ module.exports = {
 	show : function (req, res) {
 		User.find().exec(function (err, result) {
 			if(err) throw err;
-			res.render('user',{ users : result});
+			Application.find().exec( function (err, app) {
+				if(err) res.render(404);
+				res.render('user',{ users : result, app : app});
+			});
 		});
 	}
 };

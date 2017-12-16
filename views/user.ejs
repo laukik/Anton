@@ -74,7 +74,16 @@
           <input class="form form-control form-input" style="margin-bottom:5px" type="text" required="true" placeholder="User Name" name="username" >
           <input class="form form-control form-input" style="margin-bottom:5px" type="text" required="true" placeholder="NTNET" name="ntnet" >
           <input class="form form-control form-input"  type="text" style="margin-bottom:5px" required="true"   placeholder="Employee ID" name="employeeId" >
-          <input class="form form-control form-input" style="margin-bottom:5px"  type="text" required="true" placeholder="Application" name="application" >
+          <!-- <input class="form form-control form-input" style="margin-bottom:5px"  type="text" required="true" placeholder="Application" name="application" > -->
+
+
+          <select name = "application" placeholder="Application" class="combobox form form-control" style="margin-bottom:5px" >
+            <% for( var i = 0; i < app.length;i++){ %>
+              <option value="<%= app[i].app %>" ><%= app[i].app %></option>
+              <% } %>
+          </select>
+
+
           <button type="submit" style="margin-top:8px" class="form form-control btn btn-success">Submit</button>
         </form>
       </div>
