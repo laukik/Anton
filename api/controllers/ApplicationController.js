@@ -18,12 +18,12 @@ module.exports = {
 	},
 
 	show : function( req, res){
-		Application.find().exec( function (err, apps){
+		Application.find().exec( function (err, appsx){
 			if( err ){
 				throw err;
 			}
-			console.log(apps);
-			res.render('application',{ apps : apps } );
+			console.log(appsx);
+			res.render('application',{ apps : appsx } );
 		});
 	}
 };

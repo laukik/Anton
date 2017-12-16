@@ -98,6 +98,7 @@
                   <option value="taskType" > Task Type</option>
                   <option value="status" > Status </option>
                   <option value="area" > Area</option>
+                  <option value="app" > Application</option>
               </select>
             </div>
             <!-- task type selection -->
@@ -124,6 +125,15 @@
               <label><input type="checkbox"  selected="selected" value="" name = "severity" checked > All </label>
               <% for( var i = 0; i < tasktypes.length;i++){ %>
                 <label><input type="checkbox" value="<%= severity[i].severity %>" name = "severity" > <%= severity[i].severity %> </label>
+              <% } %>
+            </div>
+            <!-- Application Selection -->
+            <div class="card checkbox form form-control jumbotron" style="margin-bottom:5px" >
+              <label class="form form-control badge badge-default"> <span class="fa fa-compass" title="Application" aria-hidden="true"/> Application </label>
+              <br>
+              <label><input type="checkbox"  selected="selected" value="" name = "app" checked > All </label>
+              <% for( var i = 0; i < app.length;i++){ %>
+                <label><input type="checkbox" value="<%= app[i].app %>" name = "app" > <%= app[i].app %> </label>
               <% } %>
             </div>
           </div>
