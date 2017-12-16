@@ -149,10 +149,21 @@ module.exports.routes = {
   },
 
   /********************************************************/
-
   'get /charts' : {
     controller : 'FilterController',
     action : 'chartData'
+  },
+
+  /********************************************************/
+  'post /application' : {
+    controller : 'ApplicationController',
+    action : 'create'
+  },
+
+  /********************************************************/
+  'get /application' : {
+    controller : 'ApplicationController',
+    action : 'show'
   }
 
 };

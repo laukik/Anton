@@ -51,6 +51,11 @@
         <span class="fa fa-bug" title="Task Type" aria-hidden="true"/>
       </a>
     </li>
+    <li class="nav-item">
+      <a class="nav-link " href="/application">
+        <span class="fa fa-rocket" title="application" aria-hidden="true"/>
+      </a>
+    </li>
     <li class="nav-item active">
       <a class="nav-link " href="/severity">
         <span class="fa fa-exclamation-circle" title="Severity" aria-hidden="true"/>
@@ -129,10 +134,18 @@
                   <label > <span class="fa fa-compass" title="Area" aria-hidden="true"/> Severity </label>
                   <br>
                   <label><input type="checkbox"  selected="selected" value="" name = "severity" checked > All </label>
-                  <% for( var i = 0; i < tasktypes.length;i++){ %>
+                  <% for( var i = 0; i < severity.length;i++){ %>
                     <label><input type="checkbox" value="<%= severity[i].severity %>" name = "severity" > <%= severity[i].severity %> </label>
                     <% } %>
-                  </div>
+                </div>
+                <div class="card checkbox form form-control" style="margin-bottom:5px" >
+                  <label > <span class="fa fa-rocket" title="Application" aria-hidden="true"/> Application </label>
+                  <br>
+                  <label><input type="checkbox"  selected="selected" value="" name = "app" checked > All </label>
+                  <% for( var i = 0; i < app.length;i++){ %>
+                    <label><input type="checkbox" value="<%= app[i].app %>" name = "app" > <%= app[i].app %> </label>
+                    <% } %>
+                </div>
                   <button type="submit" style="margin-top:8px" class="form form-control btn btn-success"> Filter
                     <span class="fa fa-filter" title="Filter" aria-hidden="true"/>
                   </button>
@@ -152,6 +165,7 @@
                     <th> Status</th>
                     <th> Area</th>
                     <th> Severity</th>
+                    <th> Application</th>
                     <th> Defect ID</th>
                   </thead>
                   <tbody>
@@ -166,6 +180,7 @@
                         <td><%= tasks[i].status %></td>
                         <td><%= tasks[i].area %></td>
                         <td><%= tasks[i].severity %></td>
+                        <td><%= tasks[i].app %></td>
                         <td><%= tasks[i].taskId %></td>
                       </tr>
                       <% } %>

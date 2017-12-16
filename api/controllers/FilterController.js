@@ -46,7 +46,10 @@ module.exports = {
 							if(err) throw err;
 							Severity.find().exec(function (err, severity) {
 								if(err) res.render('404');
-								res.render('filter',{ tasks : tasks, severity : severity,areas : areas, status:status, users : users, tasktypes: taskTypes } );
+								Application.find().exec( function( err, app) {
+									if(err) res.render('404');
+									res.render('filter',{ tasks : tasks, severity : severity,areas : areas, status:status, users : users, tasktypes: taskTypes,app:app } );
+								});
 							});
 						});
 					});
@@ -120,7 +123,10 @@ module.exports = {
 							if(err) throw err;
 							Severity.find().exec(function (err, severity) {
 								if(err) res.render('404');
-								res.render('extChart',{ chartData : tasks, severity : severity,areas : areas, status:status, users : users, tasktypes: taskTypes } );
+								Application.find().exec( function (err, app) {
+									if(err) res.render('404');
+									res.render('extChart',{ chartData : tasks, severity : severity,areas : areas, status:status, users : users, tasktypes: taskTypes,app:app } );
+								});
 							});
 						});
 					});

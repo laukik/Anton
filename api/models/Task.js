@@ -39,6 +39,10 @@ module.exports = {
     severity : {
       type : "String",
       required : true
+    },
+    app : {
+      type : "String",
+      required : true
     }
   }
 

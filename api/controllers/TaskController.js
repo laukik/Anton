@@ -33,8 +33,11 @@ module.exports = {
 						TaskType.find().exec(function (err, taskTypes) {
 							if(err) res.render('404');
 							Severity.find().exec( function (err, severity) {
-									if(err) res.render('404');
-									res.render('task',{ tasks : tasks, areas : areas, severity : severity,status:status, users : users, tasktypes: taskTypes } );
+								if(err) res.render('404');
+								Application.find().exec( function (err, app) {
+									if(err) res.render(404);
+										res.render('task',{ tasks : tasks, areas : areas, severity : severity,status:status, users : users, tasktypes: taskTypes, app:app } );
+								});
 							});
 						});
 					});

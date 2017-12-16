@@ -7,7 +7,7 @@
 
 module.exports = {
 	create : function ( req, res) {
-console.log(req.allParams());
+		console.log(req.allParams());
 		Area.create( req.allParams(), function (err, result) {
 			if( err){
 				console.log(err);

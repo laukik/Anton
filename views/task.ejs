@@ -53,6 +53,11 @@
         <span class="fa fa-bug" title="Task Type" aria-hidden="true"/>
       </a>
     </li>
+    <li class="nav-item">
+      <a class="nav-link " href="/application">
+        <span class="fa fa-rocket" title="application" aria-hidden="true"/>
+      </a>
+    </li>
     <li class="nav-item active">
       <a class="nav-link " href="/severity">
         <span class="fa fa-exclamation-circle" title="Severity" aria-hidden="true"/>
@@ -108,6 +113,11 @@
                   <option value="<%= severity[i].severity %>" ><%= severity[i].severity %></option>
                   <% } %>
               </select>
+              <select name = "app" class="combobox form form-control" style="margin-bottom:5px" >
+                <% for( var i = 0; i < app.length;i++){ %>
+                  <option value="<%= app[i].app %>" ><%= app[i].app %></option>
+                  <% } %>
+              </select>
               <input class="form form-control form-input" style="margin-bottom:5px"  type="text" required="true" placeholder="Defect ID" name="taskId" >
               <button type="submit" style="margin-top:8px" class="form form-control btn btn-success">Submit</button>
               </form>
@@ -126,6 +136,7 @@
                   <th> Status</th>
                   <th> Area</th>
                   <th> Severity</th>
+                  <th> Application</th>
                   <th> Defect ID</th>
                 </thead>
                 <tbody>
@@ -140,6 +151,7 @@
                       <td><%= tasks[i].status %></td>
                       <td><%= tasks[i].area %></td>
                       <td><%= tasks[i].severity %></td>
+                      <td><%= tasks[i].app %></td>
                       <td><%= tasks[i].taskId %></td>
                     </tr>
                     <% } %>
