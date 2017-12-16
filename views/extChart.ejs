@@ -23,7 +23,7 @@
     padding-top: 10px;
   }
   </style>
-  <body class="container" >
+  <body class="container" background='images/grey.png' >
   <ul class="nav nav-tabs">
     <li class="nav-item">
       <a class="nav-link" href="/">
@@ -196,7 +196,6 @@
               <h4 class="card-title" style="margin-top : 6px" > Distribution </h4>
               <% for( var i = 0 ; i < chartData['label'].length ; i++){ %>
                 <p class="card-text" style="">
-
                   <%= chartData['label'][i] %> <span class="badge badge-primary"><%= chartData['series'][i] %></span>
                 </p>
               <% } %>
@@ -206,7 +205,6 @@
       </div>
     </div>
   </div>
-
   </body>
   <script type="text/javascript">
     <% if ( Object.keys( chartData ).length != 0  ) {%>
