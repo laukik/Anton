@@ -19,7 +19,7 @@ module.exports = {
 	},
 
 	show : function (req, res) {
-		Task.find().exec( function (err, tasks){
+		Task.find({ "limit" : '10'}).sort('createdAt DESC').exec( function (err, tasks){
 			if(err) res.render('404');
 			console.log(tasks);
 			//We need to fetch the details for
