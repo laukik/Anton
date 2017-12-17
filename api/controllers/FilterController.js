@@ -24,13 +24,16 @@ module.exports = {
 			criterion["<="] = till;
 		}
 		var whereClause = {};
-		whereClause["workDate"] = criterion;
 		Object.keys(filter).forEach((key) => (filter[key] == null || filter[key] == '' || filter[key] == "" || filter[key] == undefined ) && delete filter[key]);
-		Object.keys(whereClause).forEach((key) => (whereClause[key] == null || whereClause[key] == '' || whereClause[key] == "" || whereClause[key] == undefined ) && delete whereClause[key]);
 		delete filter["fromDate"];
 		delete filter["tillDate"]
 		console.log(filter);
-		Task.find(filter).where(whereClause).exec( function( err, tasks){
+		var query = Task.find(filter);
+		if( Object.keys( criterion ).length != 0){
+					whereClause["workDate"] = criterion;
+					query = query.where(whereClause);
+		}
+		query.exec( function( err, tasks){
 			if(err) throw err;
 			Area.find().exec( function (err, areas){
 				if( err ){

@@ -100,6 +100,7 @@
                   <option value="status" > Status </option>
                   <option value="area" > Area</option>
                   <option value="app" > Application</option>
+                  <option value="username" > User</option>                  
               </select>
             </div>
             <!-- task type selection -->
@@ -210,7 +211,8 @@
   </div>
   </body>
   <script type="text/javascript">
-    $("#chartForm").submit(function(e) {
+    $("#chartForm").submit(
+      function(e) {
       var url = "/chartFilterAjax"; // the script where you handle the form input.
       $.ajax({
         type: "POST",
