@@ -124,7 +124,7 @@
               <label class="form form-control badge badge-default"> <span class="fa fa-compass" title="Area" aria-hidden="true"/> Severity </label>
               <br>
               <label><input type="checkbox"  selected="selected" value="" name = "severity" checked > All </label>
-              <% for( var i = 0; i < tasktypes.length;i++){ %>
+              <% for( var i = 0; i < severity.length;i++){ %>
                 <label><input type="checkbox" value="<%= severity[i].severity %>" name = "severity" > <%= severity[i].severity %> </label>
               <% } %>
             </div>
