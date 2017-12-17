@@ -136,6 +136,11 @@ module.exports.routes = {
     controller : 'FilterController',
     action : 'chartFilter'
   },
+
+  'post /chartFilterAjax' : {
+    controller : "FilterController",
+    action : "chartFilterAjax"
+  },
   /********************************************************/
 
   'post /severity' : {

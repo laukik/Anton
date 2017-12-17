@@ -82,7 +82,7 @@
   <div class="row">
     <div class="col-lg-6">
       <h1><span class="badge badge-default form form-control form-input">Task Filters </span></h1>
-      <form class="form" action="/chartFilter" method="post">
+      <form class="form" action="/chartFilter" method="post" id='chartForm'>
       <!-- filter Data -->
         <div class="row">
           <div class="col-lg-6">
@@ -195,11 +195,13 @@
             <!-- details Section  -->
             <div class="card-body ">
               <h4 class="card-title" style="margin-top : 6px" > Distribution </h4>
-              <% for( var i = 0 ; i < chartData['label'].length ; i++){ %>
-                <p class="card-text" style="">
-                  <%= chartData['label'][i] %> <span class="badge badge-primary"><%= chartData['series'][i] %></span>
-                </p>
-              <% } %>
+              <div id="distribution">
+                <% for( var i = 0 ; i < chartData['label'].length ; i++){ %>
+                  <p class="card-text" style="">
+                    <%= chartData['label'][i] %> <span class="badge badge-primary"><%= chartData['series'][i] %></span>
+                  </p>
+                <% } %>
+              </div>
             </div>
           </div>
         <% } %>
@@ -208,6 +210,41 @@
   </div>
   </body>
   <script type="text/javascript">
+    $("#chartForm").submit(function(e) {
+      var url = "/chartFilterAjax"; // the script where you handle the form input.
+      $.ajax({
+        type: "POST",
+        url: url,
+        data: $("#chartForm").serialize(), // serializes the form's elements.
+        success: function(data)
+        {
+          if( data != undefined){
+            //populate distribution..
+            var chartData = data['chartData'];
+            var labelAjax = chartData['label'];
+            var $jobs = $('<div class=""></div>');
+            for( var i = 0 ; i < chartData['label'].length ; i++){
+              $jobs.append(`<p class="card-text" style="">`);
+              $jobs.append(`${chartData['label'][i]}   <span class="badge badge-primary">${chartData['series'][i]}</span>`);
+              $jobs.append(`<\p>`);
+            }
+            $('#distribution').html($jobs);
+
+            //create Chart
+            var chart = new Chartist.Pie('#chartX', chartData,{
+              labelInterpolationFnc: function(value, idx) {
+                var percentage = Math.round(value / chartData.series.reduce(sum) * 100) + '%';
+                return chartData['label'][idx] + ' ' + percentage;
+              },
+              donut: true,
+              showLabel: true
+            });
+            showAnimation(chart);
+          }
+        }
+      });
+      e.preventDefault(); // avoid to execute the actual submit of the form.
+    });
     <% if ( Object.keys( chartData ).length != 0  ) {%>
       var labelSev = [];
       var seriesXSev = [];
