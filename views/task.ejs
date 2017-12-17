@@ -83,7 +83,7 @@
             <% } %>
           </select>
           <!-- <input class="form form-control form-input" style="margin-bottom:5px" type="text" required="true" placeholder="Employee ID" name="employeeId" > -->
-          <select name = "taskType" class="combobox form form-control" style="margin-bottom:5px" >
+          <select name = "taskType" class="combobox form form-control"  required="true" style="margin-bottom:5px" >
             <% for( var i = 0; i < tasktypes.length;i++){ %>
               <option value="<%= tasktypes[i].taskType %>" ><%= tasktypes[i].taskType %></option>
               <% } %>
@@ -95,23 +95,23 @@
               </span>
             </div>
             <input class="form form-control form-input"  type="text" style="margin-bottom:5px" required="true"   placeholder="Description" name="description" >
-            <select name = "status" class="combobox form form-control" style="margin-bottom:5px" >
+            <select name = "status" class="combobox form form-control"  required="true" style="margin-bottom:5px" >
 
               <% for( var i = 0; i < status.length;i++){ %>
                 <option value="<%= status[i].status %>" ><%= status[i].status %></option>
                 <% } %>
               </select>
-              <select name = "area" class="combobox form form-control" style="margin-bottom:5px" >
+              <select name = "area" class="combobox form form-control"  required="true" style="margin-bottom:5px" >
                 <% for( var i = 0; i < areas.length;i++){ %>
                   <option value="<%= areas[i].area %>" ><%= areas[i].area %></option>
                   <% } %>
               </select>
-              <select name = "severity" class="combobox form form-control" style="margin-bottom:5px" >
+              <select name = "severity" class="combobox form form-control" required="true" style="margin-bottom:5px" >
                 <% for( var i = 0; i < severity.length;i++){ %>
                   <option value="<%= severity[i].severity %>" ><%= severity[i].severity %></option>
                   <% } %>
               </select>
-              <select name = "app" class="combobox form form-control" style="margin-bottom:5px" >
+              <select name = "app" class="combobox form form-control" required="true" style="margin-bottom:5px" >
                 <% for( var i = 0; i < app.length;i++){ %>
                   <option value="<%= app[i].app %>" ><%= app[i].app %></option>
                   <% } %>
