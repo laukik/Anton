@@ -93,14 +93,13 @@ module.exports = {
 			var till = new Date( dater[2], dater[1] - 1, dater[0]);
 			criterion["$lte"] = till;
 		}
-		//var whereClause = {};
+
 		if( Object.keys( criterion ).length != 0){
 					filter["workDate"] = criterion;
 		}
 		Object.keys(filter).forEach((key) => (filter[key] == null || filter[key] == '' || filter[key] == "" || filter[key] == undefined ) && delete filter[key]);
 		var group = filter['groupBy'];
 		if( group  ==undefined) group = 'severity';
-		//Object.keys(whereClause).forEach((key) => (whereClause[key] == null || whereClause[key] == '' || whereClause[key] == "" || whereClause[key] == undefined ) && delete whereClause[key]);
 		delete filter["groupBy"];
 		delete filter["fromDate"];
 		delete filter["tillDate"];
@@ -178,7 +177,20 @@ module.exports = {
 			if(err) throw err;
 			res.send({ chartData : tasks } );
 		});
-	}
+	},
 
+	defectDistro : function (req, res) {
+		AggregationService.groupByCount( { "taskType" : "Defect"}, "workDate" , function( err, tasks){
+			console.log(tasks);
+			if(err) throw err;
+			var newSeries = [];
+			var oldSeries = tasks['label'];
+			for( var i = 0 ; i < oldSeries.length; i++){
+				newSeries.push(oldSeries[0].toDateString());
+			}
+			tasks['label'] = newSeries;
+			res.send({ defectChart : tasks } );
+		});
+	}
 
 };

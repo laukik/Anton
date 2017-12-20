@@ -159,6 +159,10 @@ module.exports.routes = {
     action : 'chartData'
   },
 
+  'get /defectChart' : {
+    controller : 'FilterController',
+    action : 'defectDistro'
+  },
   /********************************************************/
   'post /application' : {
     controller : 'ApplicationController',
