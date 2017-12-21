@@ -180,7 +180,7 @@ module.exports = {
 	},
 
 	defectDistro : function (req, res) {
-		AggregationService.groupByCount( { "taskType" : "Defect"}, "workDate" , function( err, tasks){
+		AggregationService.groupByCount( { "taskType" : "Defect", "status" : { "$ne" : "In Progress"}}, "workDate" , function( err, tasks){
 			console.log(tasks);
 			if(err) throw err;
 			var newSeries = [];

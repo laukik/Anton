@@ -163,7 +163,7 @@
                   <thead>
                   </tr>
                   <tr>
-                    <th>#</th>
+            
                     <th> User Name</th>
                     <th> Task Type</th>
                     <th> Completion Date</th>
@@ -178,7 +178,6 @@
                     <% for( var i = 0 ; i < tasks.length; i ++){ %>
                       <!-- <span class="badge badge-primary"> -->
                       <tr>
-                        <td scope="row"><%= i %></th>
                         <td><%= tasks[i].username %></td>
                         <td><%= tasks[i].taskType %></td>
                         <td><%= tasks[i].workDate.toDateString() %></td>
