@@ -186,9 +186,11 @@ module.exports = {
 			var newSeries = [];
 			var oldSeries = tasks['label'];
 			for( var i = 0 ; i < oldSeries.length; i++){
-				newSeries.push(oldSeries[0].toDateString());
+				newSeries.push(oldSeries[i].toDateString());
 			}
 			tasks['label'] = newSeries;
+			tasks['label'].reverse();
+			tasks['series'].reverse();
 			res.send({ defectChart : tasks } );
 		});
 	}

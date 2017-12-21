@@ -10,6 +10,7 @@
   <script src="js/chart.min.js"></script>
   <script src="js/chartAnimation.js"></script>
   <script src="js/chartist-plugin-threshold.js"></script>
+  <script src="js/lineAnimation.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
   <link href="styles/open-iconic/font/css/open-iconic-bootstrap.css" rel="stylesheet">
@@ -191,7 +192,7 @@
       <div class="row">
         <% if ( Object.keys( chartData ).length != 0  ) { %>
           <div class="col-lg-8">
-            <div class=" ct-chart" id = "chartX">
+            <div class="ct-chart" id = "chartX" style="position:relative;width:100%">
             </div>
           </div>
           <div class="col-lg-4">
@@ -209,11 +210,15 @@
           </div>
         <% } %>
       </div>
-      <div class="row">
-
-          <div class="col-lg-12">
+      <div class="row align-items-start">
+          <div class="row">
+          <span class="badge badge-primary">Defect CHART  Defect Count v/s Day</span>
+          </div>
+          <div class="row">
+          <div class="col" style="width:500px;height:500px" >
             <div class=" ct-chart" id = "defectChartX">
             </div>
+          </div>
           </div>
 
       </div>
@@ -264,19 +269,21 @@
 
             //create Chart
             var chart = new Chartist.Line('#defectChartX', {
-              labels: chartData['label'],
-              series: [ chartData['series'] ]
-            }, {
+                labels: chartData['label'],
+                series: [ chartData['series'] ]
+              }, {
               showArea: true,
               axisY: {
                 onlyInteger: true
               },
+              low : 0,
               plugins: [
                 // Chartist.plugins.ctThreshold({
                 //   threshold: 4
                 // })
               ]
             });
+            lineAnimation(chart);
           }
         }
       });
