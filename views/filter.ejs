@@ -163,7 +163,7 @@
                   <thead>
                   </tr>
                   <tr>
-            
+
                     <th> User Name</th>
                     <th> Task Type</th>
                     <th> Completion Date</th>
@@ -173,6 +173,7 @@
                     <th> Severity</th>
                     <th> Application</th>
                     <th> Defect ID</th>
+                    <th> Hours</th>
                   </thead>
                   <tbody>
                     <% for( var i = 0 ; i < tasks.length; i ++){ %>
@@ -187,6 +188,13 @@
                         <td><%= tasks[i].severity %></td>
                         <td><%= tasks[i].app %></td>
                         <td><%= tasks[i].taskId %></td>
+                        <td>
+                          <%if( tasks[i].timeTaken != undefined){%>
+                          <%= tasks[i].timeTaken %>
+                          <%}else{%>
+                            NA
+                          <%}%>
+                        </td>
                       </tr>
                       <% } %>
                     </tbody>

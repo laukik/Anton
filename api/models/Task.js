@@ -43,6 +43,10 @@ module.exports = {
     app : {
       type : "String",
       required : true
+    },
+    timeTaken : {
+      type : "String",
+      required : true
     }
   }
 
