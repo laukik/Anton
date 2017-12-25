@@ -45,7 +45,7 @@ module.exports = {
       required : true
     },
     timeTaken : {
-      type : "String",
+      type : "float",
       required : true
     }
   }

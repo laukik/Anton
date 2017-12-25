@@ -69,6 +69,11 @@
         <span class="fa fa-chart-pie" title="Charts" aria-hidden="true"/>
       </a>
     </li>
+    <li class="nav-item">
+      <a class="nav-link " href="/chartFilterLine">
+        <span class="fa fa-chart-line" title="Charts" aria-hidden="true"/>
+      </a>
+    </li>
   </ul>
   <br/>
   <br/>
@@ -117,8 +122,8 @@
                   <% } %>
               </select>
               <input class="form form-control form-input" style="margin-bottom:5px"  type="text" placeholder="Task ID" name="taskId" >
-              <input class="form form-control form-input" style="margin-bottom:5px"  type="text" placeholder="Time Taken in Hours" name="timeTaken" >
-              <button type="submit" style="margin-top:8px" class="form form-control btn btn-success">Submit</button>
+              <input class="form form-control form-input" style="margin-bottom:5px"  type="text" placeholder="Time Taken in Hours" name="timeTaken" id="takenTime" >
+              <button type="submit" style="margin-top:8px" class="form form-control btn btn-success" onclick="checkIsNumber()">Submit</button>
               </form>
             </div>
             <div class="col-lg-9">
@@ -172,6 +177,11 @@
           // $(function () {
           //   $('#datetimepicker1').datetimepicker();
           // });
+          function checkIsNumber() {
+            var number = $("#takenTime").getText();
+            alert(number);
+          }
+
           $('.datepicker').datepicker({
             format: 'mm/dd/yyyy'
             //startDate: '-3d'

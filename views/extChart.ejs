@@ -79,6 +79,11 @@
         <span class="fa fa-chart-pie" title="Charts" aria-hidden="true"/>
       </a>
     </li>
+    <li class="nav-item">
+      <a class="nav-link " href="/chartFilterLine">
+        <span class="fa fa-chart-line" title="Charts" aria-hidden="true"/>
+      </a>
+    </li>
   </ul>
   <br/>
   <br/>
@@ -210,53 +215,10 @@
           </div>
         <% } %>
       </div>
-      <div class="row align-items-start" style="margin-left:15px">
-          <div class="row">
-          <span class="badge badge-primary">Defect CHART  Defect Count v/s Day</span>
-          </div>
-          <div class="row">
-          <div class="col" style="width:500px;height:500px" >
-            <div class=" ct-chart" id = "defectChartX">
-            </div>
-          </div>
-          </div>
-
-      </div>
     </div>
   </div>
   </body>
   <script type="text/javascript">
-    $("#def").ready( function () {
-      $.ajax({
-        type : "GET",
-        url : "/defectChart",
-        success : function ( defectData) {
-          if( defectData != undefined ){
-            var chartData = defectData['defectChart'];
-
-            //create Chart
-            var chart = new Chartist.Line('#defectChartX', {
-                labels: chartData['label'],
-                series: [ chartData['series'] ]
-              }, {
-              showArea: true,
-              axisY: {
-                onlyInteger: true
-              },
-              low : 0,
-              plugins: [
-                // Chartist.plugins.ctThreshold({
-                //   threshold: 4
-                // })
-              ]
-            });
-            lineAnimation(chart);
-          }
-        }
-      });
-    });
-
-
     $("#chartForm").submit(
       function(e) {
       var url = "/chartFilterAjax"; // the script where you handle the form input.

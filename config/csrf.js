@@ -30,7 +30,7 @@
  *			{ _csrf: 'ajg4JD(JGdajhLJALHDa' }
  *
  *
- * Enabling this option requires managing the token in your front-end app.
+`` * Enabling this option requires managing the token in your front-end app.
  * For traditional web apps, it's as easy as passing the data from a view into a form action.
  * In AJAX/Socket-heavy apps, just send a GET request to the /csrfToken route to get a valid token.
  *

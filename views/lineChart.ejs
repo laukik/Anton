@@ -1,0 +1,135 @@
+<html>
+  <script src="js/jquery-3.2.1.min.js"></script>
+  <script src="js/moment.js"></script>
+  <script src="js/collapse.js"></script>
+  <script src="js/transition.js"></script>
+  <script src="js/combo.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+  <script src="js/dateTime.js"></script>
+  <script src="js/chart.min.js"></script>
+  <script src="js/chartAnimation.js"></script>
+  <script src="js/chartist-plugin-threshold.js"></script>
+  <script src="js/lineAnimation.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+  <link href="styles/open-iconic/font/css/open-iconic-bootstrap.css" rel="stylesheet">
+  <link href="https://use.fontawesome.com/releases/v5.0.1/css/all.css" rel="stylesheet">
+  <link href="styles/dateTime.css" rel="stylesheet">
+  <link href="styles/combo.css" rel="stylesheet">
+  <link href="styles/chart.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="styles/axisPlugin.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker.min.css">
+  <style media="screen">
+  </style>
+  <title>Anton</title>
+  <body class="container" background='images/grey.png' >
+  <ul class="nav nav-tabs">
+    <li class="nav-item">
+      <a class="nav-link" href="/">
+        <span class="oi oi-home" title="Home" aria-hidden="true"/>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link " href="/area">
+        <span class="fa fa-compass" title="Area" aria-hidden="true"/>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link " href="/status">
+        <span class="oi oi-code" title="Status" aria-hidden="true"/>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link " href="/task">
+        <span class="fa fa-tasks" title="Task" aria-hidden="true"/>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link " href="/filter">
+        <span class="fa fa-filter" title="Filter" aria-hidden="true"/>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link " href="/user">
+        <span class="fa fa-user-circle" title="User" aria-hidden="true"/>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link " href="/taskType">
+        <span class="fa fa-bug" title="Task Type" aria-hidden="true"/>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link " href="/application">
+        <span class="fa fa-rocket" title="application" aria-hidden="true"/>
+      </a>
+    </li>
+    <li class="nav-item active">
+      <a class="nav-link " href="/severity">
+        <span class="fa fa-exclamation-circle" title="Severity" aria-hidden="true"/>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link " href="/chartFilter">
+        <span class="fa fa-chart-pie" title="Charts" aria-hidden="true"/>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link active" href="/chartFilterLine">
+        <span class="fa fa-chart-line" title="Charts" aria-hidden="true"/>
+      </a>
+    </li>
+  </ul>
+  <br>
+  <div class="row" id="def" style="height:500px;width:1100px">
+      <div class="col-lg-10">
+        <
+        <span class="badge badge-primary">Defect CHART  Defect Count v/s Day</span>
+        <div class="col-lg-12" style="padding-top:10px">
+            <div class="ct-chart" id = "defectChartX">
+            </div>
+        </div>
+      </div>
+      <div class="col-lg-2">
+        <form class="form form-control">
+
+        </form>
+      </div>
+  </div>
+  <div class="row">
+
+  </div>
+  </body>
+  <script type="text/javascript">
+    $("#def").ready( function () {
+      $.ajax({
+        type : "GET",
+        url : "/defectChart",
+        success : function ( defectData) {
+          if( defectData != undefined ){
+            var chartData = defectData['defectChart'];
+
+            //create Chart
+            var chart = new Chartist.Line('#defectChartX', {
+                labels: chartData['label'],
+                series: [ chartData['series'] ]
+              }, {
+              showArea: true,
+              axisY: {
+                onlyInteger: true
+              },
+              low : 0,
+              plugins: [
+                // Chartist.plugins.ctThreshold({
+                //   threshold: 4
+                // })
+              ]
+            });
+            lineAnimation(chart);
+          }
+        }
+      });
+    });
+  </script>
+</html>

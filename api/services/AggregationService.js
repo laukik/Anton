@@ -6,12 +6,17 @@ var AggregationService = {
   groupByCount : function ( match, groupColumn, callback) {
     var group = {	_id : { },count : { "$sum": 1 }};
     group["_id"][groupColumn] = "$" + groupColumn;
+    var sortCol = "_id."+groupColumn;
+    var sort = {};
+    sort[sortCol] = -1;
+    console.log(sort);
     console.log("....AGREEGATION CONDITION....");
     console.log(group["_id"][groupColumn]);
     Task.native( function( err, collection) {
       var condition = [
         { $match : match },
-        { $group : group }
+        { $group : group },
+        { $sort  : sort  }
       ];
 
       collection.aggregate(condition).toArray( function( err, results){

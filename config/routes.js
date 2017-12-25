@@ -163,6 +163,11 @@ module.exports.routes = {
     controller : 'FilterController',
     action : 'defectDistro'
   },
+
+  'get /chartFilterLine' : {
+    controller : 'FilterController',
+    action : 'showLine'
+  },
   /********************************************************/
   'post /application' : {
     controller : 'ApplicationController',

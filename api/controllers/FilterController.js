@@ -193,6 +193,10 @@ module.exports = {
 			tasks['series'].reverse();
 			res.send({ defectChart : tasks } );
 		});
+	},
+
+	showLine : function (req,res) {
+		res.render('lineChart');
 	}
 
 };
