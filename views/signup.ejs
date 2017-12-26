@@ -1,0 +1,116 @@
+<html>
+  <title>Anton</title>
+  <script src="js/jquery-3.2.1.min.js"></script>
+  <script src="js/moment.js"></script>
+  <script src="js/collapse.js"></script>
+  <script src="js/transition.js"></script>
+  <script src="js/combo.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+  <script src="js/dateTime.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+  <link href="styles/open-iconic/font/css/open-iconic-bootstrap.css" rel="stylesheet">
+  <link href="https://use.fontawesome.com/releases/v5.0.1/css/all.css" rel="stylesheet">
+  <link href="styles/dateTime.css" rel="stylesheet">
+  <link href="styles/combo.css" rel="stylesheet">
+  <style media="screen">
+    .alpha {
+    /* Fallback for older browsers without RGBA-support */
+    background: rgba(204, 204, 204, 0.05) !important;
+    background-color: rgba(204, 204, 204, 0.05) !important;
+    text-outline: 2px 2px #783428 !important;
+    border: 1px solid #4343;
+    border-radius: 7px;
+    }
+  </style>
+  <body class="container" background='images/towerX.jpg' style=" background-size: auto;">
+    <header class="navbar navbar-expand">
+
+    </header>
+    <br/>
+    <br/><br/><br/><br/><br/><br/><br/>
+    <br/>
+    <div class="row">
+      <div class="col-lg-4">
+
+      </div>
+      <div class="col-lg-4">
+        <!-- <h3 style="margin-bottom : 10px"> User SignUp </h3> -->
+        <div class="" id="error">
+          <!-- Modal -->
+          <div class="modal fade" id="getCodeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+               <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                  <h4 class="modal-title" id="myModalLabel"> Error Message </h4>
+                </div>
+                <div class="modal-body" id="getCode" style="overflow-x: scroll;">
+                   //ajax success content here.
+                </div>
+             </div>
+            </div>
+          </div>
+        </div>
+        <form class="form" action="/user" method="post">
+          <input class="form form-control form-input alpha" style="margin-bottom:5px" type="text" required="true" placeholder="User Name" name="username" id="username" onchange="checkUser()" >
+          <input class="form form-control form-input alpha" style="margin-bottom:5px" type="text" required="true" placeholder="NTNET" name="ntnet" id="ntnet" onchange="checkNtNet()" >
+          <input class="form form-control form-input alpha"  type="text" style="margin-bottom:5px" required="true"   placeholder="Employee ID" name="employeeId" id="employeeId" onchange="checkEmployeeId()" >
+          <input class="form form-control form-input alpha" style="margin-bottom:5px"  type="password" required="true" placeholder="Password" name="password" >
+          <select name = "application" placeholder="Application" class="combobox form form-control alpha" style="margin-bottom:5px" >
+            <% if( Object.keys(app).length != 0 ){ %>
+              <% for( var i = 0; i < app.length;i++){ %>
+                <option value="<%= app[i].app %>" ><%= app[i].app %></option>
+              <% } %>
+            <% } %>
+          </select>
+          <button type="submit" style="margin-top:8px" class="form form-control btn btn-success">Sign Up</button>
+        </form>
+      </div>
+      <div class="col-lg-4">
+
+      </div>
+
+    </div>
+  </body>
+  <script type="text/javascript">
+    function checkUser() {
+      var dataX = { "username" : $('#username').val()};
+      check( "User Name" , '#username', dataX);
+    }
+
+    function checkNtNet() {
+      var dataX = { "ntnet" : $('#ntnet').val()};
+      check( "NTNET" , '#ntnet',dataX);
+    }
+
+    function checkEmployeeId() {
+      var dataX = { "employeeId" : $('#employeeId').val()};
+      check( "Employee ID" ,'#employeeId', dataX);
+    }
+
+
+
+    function check(field, id,  dataX) {
+      $.ajax({
+        type : 'GET',
+        url : '/validateUserExists',
+        data : dataX,
+        success : function (dataZ) {
+            var userExists = dataZ['isUserExists'];
+            if( userExists){
+              var usernameVal = $(id).val();
+              $(id).val("");
+              $("#getCodeModal").modal("toggle");
+              $("#getCode").html( field + " : " + usernameVal + " already exists");
+            }
+
+        }
+      });
+    }
+
+    $(function () {
+      $('#datetimepicker1').datetimepicker();
+    });
+  </script>
+</html>

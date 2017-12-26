@@ -33,8 +33,8 @@ module.exports.routes = {
   ***************************************************************************/
 
   '/': {
-    controller : 'TaskController',
-    action : 'show'
+    controller : 'UserController',
+    action : 'signup'
   },
 
   /*************************** TAKS*******************************************/
@@ -98,6 +98,10 @@ module.exports.routes = {
   'get /user' : {
     controller : 'UserController',
     action : 'show'
+  },
+  'get /validateUserExists' : {
+    controller : 'UserController',
+    action : 'validateUserExists'
   },
   /*************************** TAKS*******************************************/
 
@@ -178,6 +182,13 @@ module.exports.routes = {
   'get /application' : {
     controller : 'ApplicationController',
     action : 'show'
+  },
+
+  /***********         PASSPORT *************************/
+  'get /login' : {
+    controller : 'UserController',
+    action : 'login'
   }
+
 
 };
