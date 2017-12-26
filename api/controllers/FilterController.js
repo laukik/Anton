@@ -180,7 +180,29 @@ module.exports = {
 	},
 
 	defectDistro : function (req, res) {
-		AggregationService.groupByCount( { "taskType" : "Defect", "status" : { "$ne" : "In Progress"}}, "workDate" , function( err, tasks){
+		var filter = req.allParams();
+		console.log(filter);
+		var fromDate = filter["fromDate"];
+		var tillDate = filter["tillDate"];
+		var criterion = {};
+		//format fromDate
+		if( fromDate ){
+			var dater = fromDate.split("/");
+			var from = new Date( dater[2], dater[1] - 1, dater[0]);
+			criterion["$gte"] = from;
+		}
+		if( tillDate){
+			var dater = tillDate.split("/");
+			var till = new Date( dater[2], dater[1] - 1, dater[0]);
+			criterion["$lte"] = till;
+		}
+		var whereClause = {};
+		if( Object.keys( criterion ).length != 0){
+					whereClause["workDate"] = criterion;
+		}
+		whereClause["taskType"] = "Defect";
+		whereClause["status"] = { "$ne" : "In Progress"};
+		AggregationService.groupByCount( whereClause, "workDate" , function( err, tasks){
 			console.log(tasks);
 			if(err) throw err;
 			var newSeries = [];

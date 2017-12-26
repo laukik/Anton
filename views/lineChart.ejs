@@ -83,17 +83,36 @@
   </ul>
   <br>
   <div class="row" id="def" style="height:500px;width:1100px">
-      <div class="col-lg-10">
-        <
+      <div class="col-lg-9">
         <span class="badge badge-primary">Defect CHART  Defect Count v/s Day</span>
         <div class="col-lg-12" style="padding-top:10px">
             <div class="ct-chart" id = "defectChartX">
             </div>
         </div>
       </div>
-      <div class="col-lg-2">
-        <form class="form form-control">
-
+      <div class="col-lg-3">
+        <form class="form form-control" id="formX">
+          <!-- Date selection -->
+          <button type="submit" class="btn btn-success form form-control" name="button" style="margin-bottom:5px"> Filter</button>
+          <div class="card jumbotron" >
+            <p class="lead">Date</p>
+            <label> From Date</label>
+            <div class='input-group date' id='datetimepicker1' style="margin-bottom:5px" >
+              <!-- <input type='text' class="form form-control form-input" required="true" placeholder="Completion Date" name="workDate"/> -->
+              <input class="datepicker form form-control form-input" data-date-format="dd/mm/yyyy" placeholder="From Date" name="fromDate"/>
+              <span class="input-group-addon">
+                <span class="fa fa-calendar-plus"></span>
+              </span>
+            </div>
+            <label> Till Date</label>
+            <div class='input-group date' id='datetimepicker2' style="margin-bottom:5px" >
+              <!-- <input type='text' class="form form-control form-input" required="true" placeholder="Completion Date" name="workDate"/> -->
+              <input class="datepicker form form-control form-input" data-date-format="dd/mm/yyyy" placeholder="To Date" name="tillDate"/>
+              <span class="input-group-addon">
+                <span class="fa fa-calendar-minus"></span>
+              </span>
+            </div>
+          </div>
         </form>
       </div>
   </div>
@@ -102,14 +121,14 @@
   </div>
   </body>
   <script type="text/javascript">
-    $("#def").ready( function () {
+    function generateChart() {
       $.ajax({
         type : "GET",
         url : "/defectChart",
-        success : function ( defectData) {
+        data: $("#formX").serialize(),
+        success : function (defectData) {
           if( defectData != undefined ){
             var chartData = defectData['defectChart'];
-
             //create Chart
             var chart = new Chartist.Line('#defectChartX', {
                 labels: chartData['label'],
@@ -121,8 +140,8 @@
               },
               low : 0,
               plugins: [
-                // Chartist.plugins.ctThreshold({
                 //   threshold: 4
+                // Chartist.plugins.ctThreshold({
                 // })
               ]
             });
@@ -130,6 +149,16 @@
           }
         }
       });
+    }
+    $("#def").ready( function () {
+      generateChart();
+    });
+    $("#formX").submit(function (e) {
+      generateChart();
+      e.preventDefault(); // avoid to execute the actual submit of the form.
+    });
+    $('.datepicker').datepicker({
+      format: 'dd/mm/yyyy'
     });
   </script>
 </html>

@@ -1,6 +1,6 @@
+/*
 
-
-
+*/
 var AggregationService = {
 
   groupByCount : function ( match, groupColumn, callback) {
@@ -18,13 +18,12 @@ var AggregationService = {
         { $group : group },
         { $sort  : sort  }
       ];
-
       collection.aggregate(condition).toArray( function( err, results){
         if(err) callback(err,null);
         console.log(results);
         if( results.length > 0 ){
           var chartData = {};
-          var chartDataLabel = [];
+          var chartDataLabel  = [];
           var chartDataSeries = [];
           for( var i = 0 ; i < results.length; i++){
             var label = results[i]["_id"][groupColumn];
