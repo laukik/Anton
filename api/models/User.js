@@ -30,7 +30,7 @@ module.exports = {
     admin : {
       type : "boolean",
       required : false
-    }
+    },
     // role :{
     //   type : "String",
     //   required : true

@@ -46,7 +46,7 @@ module.exports = {
 			}
 			res.send( userdata);
 		});
-	}.
+	},
 
 	login : function (req,res) {
 		res.render('login',{});

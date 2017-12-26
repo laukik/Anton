@@ -32,9 +32,14 @@ module.exports.routes = {
   *                                                                          *
   ***************************************************************************/
 
-  '/': {
+  '/signup': {
     controller : 'UserController',
     action : 'signup'
+  },
+
+  'get /' : {
+    controller : 'TaskController',
+    action : 'show'
   },
 
   /*************************** TAKS*******************************************/
