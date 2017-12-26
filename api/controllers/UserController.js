@@ -50,6 +50,33 @@ module.exports = {
 
 	login : function (req,res) {
 		res.render('login',{});
+	},
+
+	authUser : function (req, res) {
+		var userData = {};
+		userData['ntnet'] = req.param('ntnet');
+
+		bcrypt.hash(userData.password, 20, function(err, hash) {
+			userData.password = hash;
+			User.find( userData).exec( function (err, user) {
+				if(err) throw err;
+				if( Object.keys(user).length != 0 ){
+					bcrypt.compare(userData['ntnet'], hash).then(function(isValid) {
+						if( isValid){
+							res.session.user = req.param('ntnet');
+							res.redirect('/task');
+						}else{
+							//incorrect password..
+							res.redirect('/login',{error : { "error" : "Invalid Password"}});
+						}
+				  });
+				}else{
+					//incorrect ntnet...
+					res.redirect('/login',{error : { "error" : "Invalid NTNET"}});
+				}
+			});
+		});
+
 	}
 
 };
