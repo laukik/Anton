@@ -7,7 +7,7 @@
 
 module.exports = {
 	create : function ( req, res) {
-		console.log(req.allParams());
+		//console.log(req.allParams());
 		Area.create( req.allParams(), function (err, result) {
 			if( err){
 				console.log(err);
@@ -22,7 +22,7 @@ module.exports = {
 			if( err ){
 				throw err;
 			}
-			console.log(areas);
+			//console.log(areas);
 			res.render('addArea',{ areas : areas } );
 		});
 	}

@@ -21,7 +21,7 @@ module.exports = {
 			if( err ){
 				throw err;
 			}
-			console.log(status);
+			//console.log(status);
 			res.render('status',{ status : status } );
 		});
 	}

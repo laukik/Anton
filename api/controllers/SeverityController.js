@@ -7,7 +7,7 @@
 
 module.exports = {
 	create : function ( req, res) {
-		console.log(req.allParams());
+		//console.log(req.allParams());
 		Severity.create( req.allParams(), function (err, result) {
 			if( err){
 				res.render('404');
@@ -21,7 +21,7 @@ module.exports = {
 			if( err ){
 				res.render('404');
 			}
-			console.log(result);
+			//console.log(result);
 			res.render('severity',{ severity : result } );
 		});
 	}

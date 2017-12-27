@@ -4,11 +4,10 @@
  * @description :: Server-side logic for managing Users
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
-var bcrypt = require('bcrypt');
+
 
 module.exports = {
 	create : function (req, res) {
-		console.log();
 		var userInfo = req.allParams();
 		userInfo['admin'] = false;
 		User.create( userInfo, function ( err, user) {
@@ -38,7 +37,7 @@ module.exports = {
 	},
 
 	validateUserExists : function (req, res) {
-		console.log(req.allParams());
+		//console.log(req.allParams());
 		User.find(req.allParams()).exec( function (err, data) {
 			if(err) throw err;
 			var userdata  = {};
@@ -58,7 +57,7 @@ module.exports = {
 	authUser : function (req, res) {
 		var userData = {};
 		userData['ntnet'] = req.param('ntnet');
-		console.log(userData);
+		//console.log(userData);
 		var passwd = req.param('password');
 
 
@@ -66,13 +65,13 @@ module.exports = {
 		//userData.password = hash;
 		User.find( userData).exec( function (err, user) {
 			if(err) throw err;
-			console.log(user);
+			//console.log(user);
 			if( user.length != 0 &&  Object.keys(user[0]).length != 0 ){
 				var isValid = EncryptionService.validate( user[0]['password'], passwd);
-				console.log(isValid);
+				//console.log(isValid);
 				if( isValid){
 					req.session.me = req.param('ntnet');
-					console.log( " <><><><><><><>>< " + user[0]['admin']);
+					//console.log( " <><><><><><><>>< " + user[0]['admin']);
 					req.session.admin = user[0]['admin'];
 					//console.log(req.session);
 					res.redirect('/task');
@@ -91,7 +90,7 @@ module.exports = {
 	},
 
 	logout: function (req, res) {
-		
+
     // "Forget" the user from the session.
     // Subsequent requests from this user agent will NOT have `req.session.me`.
     req.session.me = null;

@@ -27,7 +27,7 @@ module.exports = {
 		Object.keys(filter).forEach((key) => (filter[key] == null || filter[key] == '' || filter[key] == "" || filter[key] == undefined ) && delete filter[key]);
 		delete filter["fromDate"];
 		delete filter["tillDate"]
-		console.log(filter);
+		//console.log(filter);
 		var query = Task.find(filter);
 		if( Object.keys( criterion ).length != 0){
 					whereClause["workDate"] = criterion;
@@ -64,11 +64,11 @@ module.exports = {
 	chartData : function (req, res) {
 		AggregationService.groupByCount( {}, "username", function (err, userData) {
 			if(err) res.render('404',{data : err});;
-			console.log(userData);
+			//console.log(userData);
 			var match = {'taskType' : "Defect"};
 			AggregationService.groupByCount( match, "severity",function (err, sevData) {
 				if(err) res.render('404',{data : err});;
-				console.log(sevData);
+				//console.log(sevData);
 				res.render('chart',{userData : userData, sevData : sevData, sevProdData : {}});
 			});
 		});
@@ -76,8 +76,8 @@ module.exports = {
 
 	chartFilter : function (req, res) {
 		var filter = req.allParams();
-		console.log("START");
-		console.log(filter);
+		//console.log("START");
+		//console.log(filter);
 		var fromDate = filter["fromDate"];
 		var tillDate = filter["tillDate"];
 		var criterion = {};
@@ -103,13 +103,13 @@ module.exports = {
 		delete filter["groupBy"];
 		delete filter["fromDate"];
 		delete filter["tillDate"];
-		console.log("FILTER.. ");
-		console.log(filter);
+		//console.log("FILTER.. ");
+		//console.log(filter);
 		filter = AggregationService.convertArrayIntoIn(filter);
-		console.log(" NEW FILTER.. ");
-		console.log(filter);
+		//console.log(" NEW FILTER.. ");
+		//console.log(filter);
 		AggregationService.groupByCount( filter, group , function( err, tasks){
-			console.log(tasks);
+			//console.log(tasks);
 			if(err) throw err;
 			Area.find().exec( function (err, areas){
 				if( err ){
@@ -139,8 +139,8 @@ module.exports = {
 
 	chartFilterAjax : function (req, res) {
 		var filter = req.allParams();
-		console.log("START");
-		console.log(filter);
+		//console.log("START");
+		//console.log(filter);
 		var fromDate = filter["fromDate"];
 		var tillDate = filter["tillDate"];
 		var criterion = {};
@@ -167,13 +167,13 @@ module.exports = {
 		delete filter["groupBy"];
 		delete filter["fromDate"];
 		delete filter["tillDate"];
-		console.log("FILTER.. ");
-		console.log(filter);
+		//console.log("FILTER.. ");
+		//console.log(filter);
 		filter = AggregationService.convertArrayIntoIn(filter);
-		console.log(" NEW FILTER.. ");
-		console.log(filter);
+		//console.log(" NEW FILTER.. ");
+		//console.log(filter);
 		AggregationService.groupByCount( filter, group , function( err, tasks){
-			console.log(tasks);
+			//console.log(tasks);
 			if(err) throw err;
 			res.send({ chartData : tasks } );
 		});
@@ -181,7 +181,7 @@ module.exports = {
 
 	defectDistro : function (req, res) {
 		var filter = req.allParams();
-		console.log(filter);
+		//console.log(filter);
 		var fromDate = filter["fromDate"];
 		var tillDate = filter["tillDate"];
 		var criterion = {};
@@ -203,7 +203,7 @@ module.exports = {
 		whereClause["taskType"] = "Defect";
 		whereClause["status"] = { "$ne" : "In Progress"};
 		AggregationService.groupByCount( whereClause, "workDate" , function( err, tasks){
-			console.log(tasks);
+			//console.log(tasks);
 			if(err) throw err;
 			var newSeries = [];
 			var oldSeries = tasks['label'];

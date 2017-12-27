@@ -9,7 +9,7 @@ module.exports = {
 
 	create : function ( req,  res) {
 		var task = req.allParams();
-		console.log(task);
+		//console.log(task);
 		Task.create( task, function ( err, result) {
 				if( err){
 					throw err;
@@ -21,7 +21,7 @@ module.exports = {
 	show : function (req, res) {
 		Task.find({ "limit" : '10'}).sort('createdAt DESC').exec( function (err, tasks){
 			if(err) res.render('404');
-			console.log(tasks);
+			//console.log(tasks);
 			//We need to fetch the details for
 			//Valid Status and Areas..
 			Area.find().exec( function (err, areas){
