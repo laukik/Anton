@@ -36,24 +36,14 @@
       </div>
       <div class="col-lg-4">
         <!-- <h3 style="margin-bottom : 10px"> User SignUp </h3> -->
-        <div class="" id="error">
-          <!-- Modal -->
-          <div class="modal fade" id="getCodeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg">
-               <div class="modal-content">
-                <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                  <h4 class="modal-title" id="myModalLabel"> Error Message </h4>
-                </div>
-                <div class="modal-body" id="getCode" style="overflow-x: scroll;">
-                   //ajax success content here.
-                </div>
-             </div>
-            </div>
+        <% if( Object.keys(error).length != 0){ %>
+          <div class="alert alert-danger">
+            <strong> <%=error['error'] %></strong>
           </div>
-        </div>
+
+        <% } %>
         <form class="form" action="/login" method="post">
-          <input class="form form-control form-input alpha" style="margin-bottom:5px" type="text" required="true" placeholder="NTNET" name="ntnet" id="ntnet" onchange="checkNtNet()" >
+          <input class="form form-control form-input alpha" style="margin-bottom:5px" type="text" required="true" placeholder="NTNET" name="ntnet" id="ntnet" >
           <input class="form form-control form-input alpha" style="margin-bottom:5px"  type="password" required="true" placeholder="Password" name="password" >
           <div class="row">
               <div class="col-lg-6">

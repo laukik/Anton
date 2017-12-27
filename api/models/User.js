@@ -29,7 +29,7 @@ module.exports = {
     },
     admin : {
       type : "boolean",
-      required : false
+      required : true
     },
     // role :{
     //   type : "String",
@@ -42,14 +42,6 @@ module.exports = {
     password : {
       type : "String",
       required : true
-    },
-    beforeCreate : function ( userData, next){
-      bcrypt.hash(userData.password, 20, function(err, hash) {
-        userData.password = hash;
-        //Admin role can be given from backend Only...
-        userData.admin = false;
-        next();
-      });
     }
     // beforeValidate : function (userData, next) {
     //   User.find({ "supervisior" : userData.supervisior }).exec( function (err, data) {
@@ -65,6 +57,13 @@ module.exports = {
     //       next();
     //     });
     //   });
-     }
+  },
+  beforeCreate : function ( userData, next){
+    var hash = EncryptionService.encrypt(userData.password);
+    userData['password'] = hash;
+    userData['admin'] = false;
+    console.log(userData);
+    next();
+  }
 
 }

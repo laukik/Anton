@@ -41,6 +41,11 @@ module.exports.routes = {
     controller : 'TaskController',
     action : 'show'
   },
+  'get /logout' : {
+    controller : 'UserController',
+    action : 'logout'
+  },
+
 
   /*************************** TAKS*******************************************/
 
@@ -193,6 +198,11 @@ module.exports.routes = {
   'get /login' : {
     controller : 'UserController',
     action : 'login'
+  },
+
+  'post /login' : {
+    controller : 'UserController',
+    action : 'authUser'
   }
 
 
