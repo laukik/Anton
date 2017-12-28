@@ -57,6 +57,14 @@ var AggregationService = {
       }
     }
     return convertedFilter;
+  },
+
+  mergeJson : function ( jsonArr) {
+    var outKeys = [];
+    var outVals = [];
+    for( var i = 0 ; i < jsonArr.length; i++){
+      
+    }
   }
 
 };

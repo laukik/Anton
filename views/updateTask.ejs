@@ -1,0 +1,208 @@
+<html>
+<title>Anton</title>
+<script src="js/jquery-3.2.1.min.js"></script>
+<script src="js/moment.js"></script>
+<script src="js/collapse.js"></script>
+<script src="js/transition.js"></script>
+<script src="js/combo.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+<script src="js/dateTime.js"></script>
+<script src="js/chart.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+<link href="styles/open-iconic/font/css/open-iconic-bootstrap.css" rel="stylesheet">
+<link href="https://use.fontawesome.com/releases/v5.0.1/css/all.css" rel="stylesheet">
+<link href="styles/dateTime.css" rel="stylesheet">
+<link href="styles/combo.css" rel="stylesheet">
+<link href="styles/chart.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker.min.css">
+<body class="container" background='images/grey.png' >
+  <ul class="nav nav-tabs">
+    <li class="nav-item">
+      <a class="nav-link active" href="/">
+        <span class="oi oi-home" title="Home" aria-hidden="true"/>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link " href="/task">
+        <span class="fa fa-tasks" title="Task" aria-hidden="true"/>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link " href="/filter">
+        <span class="fa fa-filter" title="Filter" aria-hidden="true"/>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link " href="/chartFilter">
+        <span class="fa fa-chart-pie" title="Charts" aria-hidden="true"/>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link " href="/chartFilterLine">
+        <span class="fa fa-chart-line" title="Charts" aria-hidden="true"/>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link " href="/logout">
+        <span class="fa fa-sign-out-alt" title="logout" aria-hidden="true"/>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link " href="/allowAdmin">
+        <span class="fa fa-user-secret" title="sudo" aria-hidden="true"/>
+      </a>
+    </li>
+  </ul>
+  <br/>
+  <br/>
+  <div class="row">
+    <div class="col-lg-3">
+      <h2><span class="badge badge-default form form-control form-input">Update Task </span></h2>
+      <form class="form" action="/task/update" method="post" id="edit_form">
+        <select name = "username" class="combobox form form-control" style="margin-bottom:5px" id="f1"  autofocus>
+
+          <% for( var i = 0; i < users.length;i++){ %>
+            <option value="<%= users[i].username %>" ><%= users[i].username %></option>
+            <% } %>
+          </select>
+          <!-- <input class="form form-control form-input" style="margin-bottom:5px" type="text" required="true" placeholder="Employee ID" name="employeeId" > -->
+          <select name = "taskType" class="combobox form form-control"  required="true" style="margin-bottom:5px" id="f2" >
+            <% for( var i = 0; i < tasktypes.length;i++){ %>
+              <option value="<%= tasktypes[i].taskType %>" ><%= tasktypes[i].taskType %></option>
+              <% } %>
+            </select>
+            <div class='input-group date' id='datetimepicker1' style="margin-bottom:5px"  >
+              <input class="datepicker form form-control form-input" data-date-format="dd/mm/yyyy" placeholder="Completion Date" name="workDate"/>
+              <span class="input-group-addon">
+                <span class="fa fa-calendar-plus"></span>
+              </span>
+            </div>
+            <input class="form form-control form-input"  type="text" style="margin-bottom:5px"    placeholder="Description" name="description"  id="f4">
+            <select name = "status" class="combobox form form-control"  required="true" style="margin-bottom:5px" id="f5">
+
+              <% for( var i = 0; i < status.length;i++){ %>
+                <option value="<%= status[i].status %>" ><%= status[i].status %></option>
+                <% } %>
+              </select>
+              <select name = "area" class="combobox form form-control"  required="true" style="margin-bottom:5px" id="f6" >
+                <% for( var i = 0; i < areas.length;i++){ %>
+                  <option value="<%= areas[i].area %>" ><%= areas[i].area %></option>
+                  <% } %>
+              </select>
+              <select name = "severity" class="combobox form form-control" required="true" style="margin-bottom:5px" id="f7" >
+                <% for( var i = 0; i < severity.length;i++){ %>
+                  <option value="<%= severity[i].severity %>" ><%= severity[i].severity %></option>
+                  <% } %>
+              </select>
+              <select name = "app" class="combobox form form-control" required="true" style="margin-bottom:5px" id="f8" >
+                <% for( var i = 0; i < app.length;i++){ %>
+                  <option value="<%= app[i].app %>" ><%= app[i].app %></option>
+                  <% } %>
+              </select>
+              <input class="form form-control form-input" style="margin-bottom:5px"  type="text" placeholder="Task ID" name="taskId" id="f9" >
+              <input class="form form-control form-input" style="margin-bottom:5px"  type="text" placeholder="Time Taken in Hours" name="timeTaken" id="takenTime"  required >
+              <input class="form form-control form-input" style="margin-bottom:5px"  type="text"  name="id" id="f11" hidden  required>
+              <button type="submit" style="margin-top:8px" class="form form-control btn btn-success" onclick="checkIsNumber()">Submit</button>
+              </form>
+            </div>
+            <div class="col-lg-9">
+              <h1>
+                <!-- <span class="badge badge-default form form-control form-input"> -->
+                Existing Tasks </span>
+              </h1>
+              <table class="table table-striped table-bordered table-hover " id="t_id">
+                <thead>
+                </tr>
+                <tr>
+                  <th>Edit</th>
+                  <th> User</th>
+                  <th> Task Type</th>
+                  <th> Completion Date</th>
+                  <th> Description</th>
+                  <th> Status</th>
+                  <th> Area</th>
+                  <th> Severity</th>
+                  <th> Application</th>
+                  <th> Task ID</th>
+                  <th> Hours</th>
+                  <th hidden> Id</th>
+                </thead>
+                <tbody>
+                  <% for( var i = 0 ; i < tasks.length; i ++){ %>
+                    <!-- <span class="badge badge-primary"> -->
+                    <tr>
+                      <td class="edit_row"> <button type="button" class="btn btn-success" name="button" onclick="onClick()"> <span class="fa fa-edit" title="Filter" aria-hidden="true"/> </button> </td>
+                      <td class="r1"><%= tasks[i].username %></td>
+                      <td class="r2"><%= tasks[i].taskType %></td>
+                      <td class="r3"><%= tasks[i].workDate.toDateString() %></td>
+                      <td class="r4"><%= tasks[i].description %></td>
+                      <td class="r5"><%= tasks[i].status %></td>
+                      <td class="r6"><%= tasks[i].area %></td>
+                      <td class="r7"><%= tasks[i].severity %></td>
+                      <td class="r8"><%= tasks[i].app %></td>
+                      <td class="r9"><%= tasks[i].taskId %></td>
+                      <td class="r10">
+                        <%if( tasks[i].timeTaken != undefined){%>
+                        <%= tasks[i].timeTaken %>
+                        <%}else{%>
+                          NA
+                        <%}%>
+                      </td>
+                      <td class="r11" hidden><%= tasks[i].id %></td>
+                    </tr>
+                    <% } %>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </body>
+          <script type="text/javascript">
+
+
+
+          function onClick() {
+            //alert("het");
+            var edit_row = document.querySelectorAll('#t_id .edit_row');
+            for(var i=0; i<edit_row.length; i++) {
+              edit_row[i].addEventListener('click', function(e){
+                //alert("adads");
+                // get parent row, add data from its cells in form fields
+                var tr_parent = this.parentNode;
+                // document.getElementById('takenTime').value = tr_parent.querySelector('.r10').innerHTML;
+                document.getElementById('f1').value = tr_parent.querySelector('.r1').innerHTML;
+                document.getElementById('f2').value = tr_parent.querySelector('.r2').innerHTML;
+                document.getElementById('datetimepicker1').value = tr_parent.querySelector('.r3').innerHTML;
+                if(tr_parent.querySelector('.r4').innerHTML){
+                    document.getElementById('f4').value = tr_parent.querySelector('.r4').innerHTML;
+                }
+                document.getElementById('f5').value = tr_parent.querySelector('.r5').innerHTML;
+                document.getElementById('f6').value = tr_parent.querySelector('.r6').innerHTML;
+                document.getElementById('f7').value = tr_parent.querySelector('.r7').innerHTML;
+                document.getElementById('f8').value = tr_parent.querySelector('.r8').innerHTML;
+                document.getElementById('f9').value = tr_parent.querySelector('.r9').innerHTML;
+                document.getElementById('f11').value = tr_parent.querySelector('.r11').innerHTML;
+              }, false);
+            }
+          }
+          // $(function () {
+          //   $('#datetimepicker1').datetimepicker();
+          // });
+          function checkIsNumber() {
+            var number = $("#takenTime").getText();
+            alert(number);
+          }
+
+          $('.datepicker').datepicker({
+            format: 'mm/dd/yyyy'
+            //startDate: '-3d'
+          }).datepicker('setDate', new Date());
+
+
+
+
+
+          </script>
+
+          </html>

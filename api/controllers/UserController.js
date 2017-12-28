@@ -12,8 +12,7 @@ module.exports = {
 		userInfo['admin'] = false;
 		User.create( userInfo, function ( err, user) {
 			if( err){
-				console.log(err);
-				throw err;
+				res.render('404');
 			}
 		});
 		res.redirect('/login');
@@ -22,6 +21,9 @@ module.exports = {
 	show : function (req, res) {
 		User.find().exec(function (err, result) {
 			if(err) throw err;
+			for( var i =0; i < result.length; i++){
+				delete result[i]['password'];
+			}
 			Application.find().exec( function (err, app) {
 				if(err) res.render(404);
 				res.render('user',{ users : result, app : app});
@@ -71,10 +73,11 @@ module.exports = {
 				//console.log(isValid);
 				if( isValid){
 					req.session.me = req.param('ntnet');
+					req.session.userName =  user[0]['username'];
 					//console.log( " <><><><><><><>>< " + user[0]['admin']);
 					req.session.admin = user[0]['admin'];
 					//console.log(req.session);
-					res.redirect('/task');
+					res.redirect('/');
 				}else{
 					//incorrect password..
 					res.render('login',{error : { "error" : "Invalid Password"}});
@@ -114,6 +117,37 @@ module.exports = {
 
 	admin : function (req, res) {
 		res.render('admin',{});
+	},
+
+	home : function (req, res) {
+		var userName = req.session.userName;
+		var filter = {};
+		filter['username'] = userName;
+		// filter['status'] = 'In Progress';
+		//console.log(filter);
+		Task.find( filter).exec( function (err, tasks) {
+			if(err) res.render('404');
+			//console.log(task);
+			Area.find().exec( function (err, areas){
+				if(err) res.render('404');
+				Status.find().exec( function (err, status){
+					if(err) res.render('404');
+					User.find().exec(function (err, users) {
+						if(err) res.render('404');
+						TaskType.find().exec(function (err, taskTypes) {
+							if(err) res.render('404');
+							Severity.find().exec( function (err, severity) {
+								if(err) res.render('404');
+								Application.find().exec( function (err, app) {
+									if(err) res.render(404);
+										res.render('updateTask',{ user : userName, tasks : tasks, areas : areas, severity : severity,status:status, users : users, tasktypes: taskTypes, app:app } );
+								});
+							});
+						});
+					});
+				});
+			});
+		});
 	}
 
 };

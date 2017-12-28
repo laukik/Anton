@@ -31,7 +31,8 @@ module.exports.policies = {
     logout : true,
     show :  ['sessionAuth', 'adminPolicy'],
     admin : ['sessionAuth', 'adminPolicy'],
-    allowAdmin : ['sessionAuth', 'adminPolicy']
+    allowAdmin : ['sessionAuth', 'adminPolicy'],
+    home : 'sessionAuth'
   },
 
   ApplicationController : {
@@ -56,7 +57,8 @@ module.exports.policies = {
       '*': 'sessionAuth'
   },
   TaskController : {
-      '*': 'sessionAuth'
+      '*': 'sessionAuth',
+      updateTask : true
   }
 
 };

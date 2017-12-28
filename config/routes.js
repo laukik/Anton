@@ -38,8 +38,12 @@ module.exports.routes = {
   },
 
   'get /' : {
-    controller : 'TaskController',
-    action : 'show'
+    controller : 'UserController',
+    action : 'home'
+  },
+  'get /home' : {
+    controller : 'UserController',
+    action : 'home'
   },
   'get /logout' : {
     controller : 'UserController',
@@ -54,14 +58,19 @@ module.exports.routes = {
     action : 'create'
   },
 
+  'post /task/update' : {
+    controller : 'TaskController',
+    action : 'updateTask'
+  },
+
   'get /task' : {
     controller : 'TaskController',
     action : 'show'
   },
 
-  'get /task/show' : {
+  'post /task/show' : {
     controller : 'TaskController',
-    action : 'show'
+    action : 'updateTask'
   },
 
   /*************************** ROLE*******************************************/

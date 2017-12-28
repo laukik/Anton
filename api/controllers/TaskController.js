@@ -44,6 +44,20 @@ module.exports = {
 				});
 			});
 		});
+	},
+
+	updateTask : function (req, res) {
+		var data = req.allParams();
+		var _id = data['id'];
+		var filter = {};
+		filter['id'] = _id;
+		delete data['id'];
+		//console.log(filter);
+		//console.log(data);
+		Task.update( filter, data ).exec(function (err, done) {
+			//console.log(done);
+			res.redirect('/home');
+		});
 	}
 
 
