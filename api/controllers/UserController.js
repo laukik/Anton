@@ -125,6 +125,9 @@ module.exports = {
 		filter['username'] = userName;
 		// filter['status'] = 'In Progress';
 		//console.log(filter);
+		if( req.session.admin){
+			filter = {};
+		}
 		Task.find( filter).exec( function (err, tasks) {
 			if(err) res.render('404');
 			//console.log(task);
