@@ -105,6 +105,15 @@ module.exports = {
 
     // Otherwise if this is an HTML-wanting browser, do a redirect.
     return res.redirect('/login');
-  }
+  },
+
+	allowAdmin : function (req, res) {
+		User.update( req.allParams(), { 'admin' : true }).exec( function (err, status) {});
+		res.redirect('/allowAdmin');
+	},
+
+	admin : function (req, res) {
+		res.render('admin',{});
+	}
 
 };

@@ -203,7 +203,16 @@ module.exports.routes = {
   'post /login' : {
     controller : 'UserController',
     action : 'authUser'
-  }
+  },
 
+  'get /allowAdmin' : {
+    controller : 'UserController',
+    action : 'admin'
+  },
+
+  'post /allowAdmin' : {
+    controller : 'UserController',
+    action : 'allowAdmin'
+  }
 
 };

@@ -29,7 +29,9 @@ module.exports.policies = {
     authUser : true,
     create : true,
     logout : true,
-    show :  ['sessionAuth', 'adminPolicy']
+    show :  ['sessionAuth', 'adminPolicy'],
+    admin : ['sessionAuth', 'adminPolicy'],
+    allowAdmin : ['sessionAuth', 'adminPolicy']
   },
 
   ApplicationController : {
