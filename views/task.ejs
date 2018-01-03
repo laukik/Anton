@@ -10,6 +10,10 @@
 <script src="js/dateTime.js"></script>
 <script src="js/chart.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js"></script>
+  <script src="js\dependencies\sails.io.js" charset="utf-8"></script>
+  <script type="text/javascript">
+io.sails.url = "http://laukikn01:1341";
+</script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
 <link href="styles/open-iconic/font/css/open-iconic-bootstrap.css" rel="stylesheet">
 <link href="https://use.fontawesome.com/releases/v5.0.1/css/all.css" rel="stylesheet">
@@ -166,6 +170,11 @@
             format: 'mm/dd/yyyy'
             //startDate: '-3d'
           }).datepicker('setDate', new Date());
+          //var io = require('sails.io.js')( require('socket.io-client') );
+          io.socket.on('newTask', function (data){
+            
+            console.log(data);
+          });
           </script>
 
           </html>

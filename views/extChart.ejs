@@ -12,6 +12,9 @@
   <script src="js/chartist-plugin-threshold.js"></script>
   <script src="js/lineAnimation.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js"></script>
+  <script src="js\dependencies\sails.io.js" charset="utf-8"></script>
+  <script src="js/bootstrap-select.js" ></script>
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script> -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
   <link href="styles/open-iconic/font/css/open-iconic-bootstrap.css" rel="stylesheet">
   <link href="https://use.fontawesome.com/releases/v5.0.1/css/all.css" rel="stylesheet">
@@ -20,11 +23,65 @@
   <link href="styles/chart.min.css" rel="stylesheet">
   <link rel="stylesheet" href="styles/axisPlugin.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker.min.css">
+  <link rel="stylesheet" href="styles/bootstrap-select.css">
+  <link rel="stylesheet" href="styles/patch.css">
   <style media="screen">
   #chartX {
     border-radius: 100px;
     padding-top: 10px;
   }
+  /*
+  Make bootstrap-select work with bootstrap 4 see:
+  https://github.com/silviomoreto/bootstrap-select/issues/1135
+  */
+  .dropdown-toggle.btn-default {
+  color: #292b2c;
+  background-color: #fff;
+  border-color: #ccc;
+  }
+  .bootstrap-select.show > .dropdown-menu > .dropdown-menu {
+  display: block;
+  }
+  .bootstrap-select > .dropdown-menu > .dropdown-menu li.hidden {
+  display: none;
+  }
+  .bootstrap-select > .dropdown-menu > .dropdown-menu li a {
+  display: block;
+  width: 100%;
+  padding: 3px 1.5rem;
+  clear: both;
+  font-weight: 400;
+  color: #292b2c;
+  text-align: inherit;
+  white-space: nowrap;
+  background: 0 0;
+  border: 0;
+  text-decoration: none;
+  }
+  .bootstrap-select > .dropdown-menu > .dropdown-menu li a:hover {
+  background-color: #f4f4f4;
+  }
+  .bootstrap-select > .dropdown-toggle {
+  width: 100%;
+  }
+  .dropdown-menu > li.active > a {
+  color: #fff !important;
+  background-color: #337ab7 !important;
+  }
+  .bootstrap-select .check-mark {
+  line-height: 14px;
+  }
+
+  .bootstrap-select button {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  }
+
+  /* Make filled out selects be the same size as empty selects */
+  .bootstrap-select.btn-group .dropdown-toggle .filter-option {
+  display: inline !important;
+  }
+
   </style>
   <title>Anton</title>
   <body class="container" background='images/grey.png' >
@@ -79,9 +136,10 @@
               <span class="fa fa-filter" title="Filter" aria-hidden="true"/>
             </button>
             <!-- group selection -->
-            <div class="card jumbotron">
+
+            <div class=" form form-control">
               <p class='text-align: center;margin-top : 1px'>Grouping Criterion</p>
-              <select name = "groupBy" class="card combobox form form-control" style="margin-bottom:1px" >
+              <select name = "groupBy" class="selectpicker show-tick form form-control "  style="margin-bottom:1px" >
                   <!-- <option value="" ></option> -->
                   <option value="severity" > Severity</option>
                   <option value="taskType" > Task Type</option>
@@ -92,50 +150,63 @@
               </select>
             </div>
             <!-- task type selection -->
-            <div class="card checkbox form form-control jumbotron" style="margin-bottom:5px" >
-              <label class="form form-control badge badge-default"> <span class="fa fa-bug" title="Area" aria-hidden="true"/> Task Type </label>
-              <label><input type="checkbox"  selected="selected" value="" name = "taskType" checked > All </label>
-              <% for( var i = 0; i < tasktypes.length;i++){ %>
-                <label><input type="checkbox" value="<%= tasktypes[i].taskType %>" name = "taskType" > <%= tasktypes[i].taskType %> </label>
-                <% } %>
+            <div class="form form-control " style="margin-bottom:5px" >
+              <p class='text-align: center;margin-top : 1px'>Task Type</p>
+              <select name = "taskType" class="selectpicker show-tick form form-control " data-actions-box="true" title="Select Task Types..." style="margin-bottom:1px" multiple>
+                <% for( var i = 0; i < tasktypes.length;i++){ %>
+                  <option value="<%= tasktypes[i].taskType %>"> <%= tasktypes[i].taskType %> </option>
+                  <% } %>
+              </select>
             </div>
+
+
             <!-- status selection -->
-            <div class="card checkbox form form-control jumbotron" style="margin-bottom:5px" >
-              <label class="form form-control badge badge-default"> <span class=" fa fa-code" title="status" aria-hidden="true"/> Status </label>
-              <br>
-              <label><input type="checkbox"  selected="selected" value="" name = "status" checked > All </label>
+            <div class="  form form-control " style="margin-bottom:5px" >
+              <p class='text-align: center;margin-top : 1px'>Status</p>
+              <select name = "status" class="selectpicker show-tick form form-control " data-actions-box="true" title="Select Status..."  style="margin-bottom:1px" multiple>
               <% for( var i = 0; i < status.length;i++){ %>
-                <label><input type="checkbox" value="<%= status[i].status %>" name = "status" > <%= status[i].status %> </label>
+                  <option value="<%= status[i].status %>"  > <%= status[i].status %>  </option>
                 <% } %>
+              </select>
             </div>
+
             <!-- Severity Selection -->
-            <div class="card checkbox form form-control jumbotron" style="margin-bottom:5px" >
-              <label class="form form-control badge badge-default"> <span class="fa fa-compass" title="Area" aria-hidden="true"/> Severity </label>
-              <br>
-              <label><input type="checkbox"  selected="selected" value="" name = "severity" checked > All </label>
+            <div class=" form form-control " style="margin-bottom:5px" >
+              <p class='text-align: center;margin-top : 1px'>Severity</p>
+              <select name = "severity" class="selectpicker show-tick form form-control " data-actions-box="true" title="Select Severity..." style="margin-bottom:1px" multiple>
               <% for( var i = 0; i < severity.length;i++){ %>
-                <label><input type="checkbox" value="<%= severity[i].severity %>" name = "severity" > <%= severity[i].severity %> </label>
-              <% } %>
+                  <option value="<%= severity[i].severity %>"  > <%= severity[i].severity %>  </option>
+                <% } %>
+              </select>
             </div>
             <!-- Application Selection -->
-            <div class="card checkbox form form-control jumbotron" style="margin-bottom:5px" >
-              <label class="form form-control badge badge-default"> <span class="fa fa-compass" title="Application" aria-hidden="true"/> Application </label>
-              <br>
-              <label><input type="checkbox"  selected="selected" value="" name = "app" checked > All </label>
+            <div class=" form form-control " style="margin-bottom:5px" >
+              <p class='text-align: center;margin-top : 1px'>Application</p>
+              <select name = "app" class="selectpicker show-tick form form-control " data-actions-box="true" title="Select Application..." style="margin-bottom:1px" multiple>
               <% for( var i = 0; i < app.length;i++){ %>
-                <label><input type="checkbox" value="<%= app[i].app %>" name = "app" > <%= app[i].app %> </label>
-              <% } %>
+                  <option value="<%= app[i].app %>"  > <%= app[i].app %>  </option>
+                <% } %>
+              </select>
             </div>
           </div>
           <div class="col-lg-6">
             <!-- user selection -->
-            <div class="card checkbox form form-control jumbotron" style="margin-bottom:5px" >
-              <label class="form form-control badge badge-default" > <span class="fa fa-user-circle" title="Area" aria-hidden="true"/> User </label>
-              <br>
-              <label><input type="checkbox"  selected="selected" value="" name = "username" checked > All </label>
+            <div class="form form-control " style="margin-bottom:5px" >
+              <p class='text-align: center;margin-top : 1px'>Users</p>
+              <select name = "username" class="selectpicker show-tick form form-control " data-actions-box="true" title="Select Username.." style="margin-bottom:1px" multiple>
               <% for( var i = 0; i < users.length;i++){ %>
-                <label><input type="checkbox" value="<%= users[i].username %>" name = "username" > <%= users[i].username %> </label>
-              <% } %>
+                  <option value="<%= users[i].username %>"  > <%= users[i].username %>  </option>
+                <% } %>
+              </select>
+            </div>
+            <!-- Area Selection -->
+            <div class=" form form-control " style="margin-bottom:5px" >
+              <p class='text-align: center;margin-top : 1px'>Area</p>
+              <select name = "area" class="selectpicker show-tick form form-control " data-actions-box="true" title="Select Area..." style="margin-bottom:1px" multiple>
+              <% for( var i = 0; i < areas.length;i++){ %>
+                  <option value="<%= areas[i].area %>"  > <%= areas[i].area %>  </option>
+                <% } %>
+              </select>
             </div>
             <!-- Date selection -->
             <div class="card jumbotron">
@@ -149,22 +220,13 @@
                 </span>
               </div>
               <label> Till Date</label>
-              <div class='input-group date' id='datetimepicker2' style="margin-bottom:5px" >
+              <div class='input-group date' id='datetimepicker2' style="margin-bottom:1px" >
                 <!-- <input type='text' class="form form-control form-input" required="true" placeholder="Completion Date" name="workDate"/> -->
                 <input class="datepicker form form-control form-input" data-date-format="dd/mm/yyyy" placeholder="To Date" name="tillDate"/>
                 <span class="input-group-addon">
                   <span class="fa fa-calendar-minus"></span>
                 </span>
               </div>
-            </div>
-            <!-- Area Selection -->
-            <div class="card checkbox form form-control jumbotron" style="margin-bottom:5px" >
-              <label class="form form-control badge badge-default" > <span class="fa fa-compass" title="Area" aria-hidden="true"/> Area </label>
-              <br>
-              <label><input type="checkbox"  selected="selected" value="" name = "area" checked > All </label>
-              <% for( var i = 0; i < areas.length;i++){ %>
-                <label><input type="checkbox" value="<%= areas[i].area %>" name = "area" > <%= areas[i].area %> </label>
-              <% } %>
             </div>
             <!-- Button Again -->
             <button type="submit" style="margin-top:8px" class="form form-control btn btn-success"> Filter
@@ -199,6 +261,16 @@
   </div>
   </body>
   <script type="text/javascript">
+    //$('.selectpicker').selectpicker();
+    $(document).ready( function () {
+          $('.selectpicker').selectpicker({
+            //style : 'btn-info',
+            size : 4,
+            iconBase: 'fa',
+            tickIcon: 'fa-check-circle'
+          });
+    });
+    //$('groupBy').selectpicker('refresh');
     $("#chartForm").submit(
       function(e) {
       var url = "/chartFilterAjax"; // the script where you handle the form input.
@@ -233,33 +305,33 @@
           }
         }
       });
-      $.ajax({
-        type : "GET",
-        url : "/defectChart",
-        success : function ( defectData) {
-          if( defectData != undefined ){
-            var chartData = defectData['defectChart'];
-
-            //create Chart
-            var chart = new Chartist.Line('#defectChartX', {
-                labels: chartData['label'],
-                series: [ chartData['series'] ]
-              }, {
-              showArea: true,
-              axisY: {
-                onlyInteger: true
-              },
-              low : 0,
-              plugins: [
-                // Chartist.plugins.ctThreshold({
-                //   threshold: 4
-                // })
-              ]
-            });
-            lineAnimation(chart);
-          }
-        }
-      });
+      // $.ajax({
+      //   type : "GET",
+      //   url : "/defectChart",
+      //   success : function ( defectData) {
+      //     if( defectData != undefined ){
+      //       var chartData = defectData['defectChart'];
+      //
+      //       //create Chart
+      //       var chart = new Chartist.Line('#defectChartX', {
+      //           labels: chartData['label'],
+      //           series: [ chartData['series'] ]
+      //         }, {
+      //         showArea: true,
+      //         axisY: {
+      //           onlyInteger: true
+      //         },
+      //         low : 0,
+      //         plugins: [
+      //           // Chartist.plugins.ctThreshold({
+      //           //   threshold: 4
+      //           // })
+      //         ]
+      //       });
+      //       lineAnimation(chart);
+      //     }
+      //   }
+      // });
       e.preventDefault(); // avoid to execute the actual submit of the form.
     });
     <% if ( Object.keys( chartData ).length != 0  ) {%>
@@ -289,5 +361,6 @@
       format: 'dd/mm/yyyy'
     });
     //.datepicker('setDate', new Date());
+
   </script>
 </html>

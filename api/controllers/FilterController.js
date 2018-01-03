@@ -140,7 +140,7 @@ module.exports = {
 	chartFilterAjax : function (req, res) {
 		var filter = req.allParams();
 		//console.log("START");
-		//console.log(filter);
+		console.log(filter);
 		var fromDate = filter["fromDate"];
 		var tillDate = filter["tillDate"];
 		var criterion = {};

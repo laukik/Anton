@@ -14,6 +14,9 @@ module.exports = {
 				if( err){
 					throw err;
 				}
+				var id = sails.sockets.getId(req);
+				console.log(" SOCKET :: " + id);
+				sails.sockets.blast('newTask', task);
 				res.redirect('/task');
 		});
 	},
@@ -55,11 +58,10 @@ module.exports = {
 		//console.log(filter);
 		//console.log(data);
 		Task.update( filter, data ).exec(function (err, done) {
+			sails.sockets.blast( 'updateTask', done);
 			//console.log(done);
 			res.redirect('/home');
 		});
 	}
-
-
-
+	
 };

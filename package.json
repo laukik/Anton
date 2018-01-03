@@ -1,11 +1,12 @@
 {
   "name": "Anton",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "a Sails application",
   "keywords": [],
   "dependencies": {
     "ejs": "2.5.5",
+    "express-react-views": "*",
     "grunt": "1.0.1",
     "grunt-contrib-clean": "1.0.0",
     "grunt-contrib-coffee": "1.0.0",
@@ -20,12 +21,12 @@
     "grunt-sync": "0.5.2",
     "include-all": "^1.0.0",
     "rc": "1.0.1",
+    "react": "*",
+    "react-dom": "*",
     "sails": "~0.12.14",
     "sails-disk": "~0.10.9",
-    "sails-mongo" : "*",
-    "express-react-views" : "*",
-    "react" : "*",
-    "react-dom" : "*"
+    "sails-mongo": "*",
+    "socket.io": "^2.0.4"
   },
   "scripts": {
     "debug": "node debug app.js",
