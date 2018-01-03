@@ -124,36 +124,7 @@
   </ul>
   <br/>
   <br/>
-
   <div class="row">
-    <div class="col-lg-12">
-      <form class="form" action="/chartFilter" method="post" id='chartForm'>
-        <div class="col-lg-3">
-          <!-- group selection -->
-          <div class=" form form-control">
-            <p class='text-align: center;margin-top : 1px'>Grouping Criterion</p>
-            <select name = "groupBy" class="selectpicker show-tick form form-control " data-live-search="true"  style="margin-bottom:1px" >
-                <!-- <option value="" ></option> -->
-                <option value="severity" data-icon="fa fa-exclamation-circle" > Severity</option>
-                <option value="taskType" data-icon="fa fa-bug" > Task Type</option>
-                <option value="status"  data-icon="fa fa-code" > Status </option>
-                <option value="area" data-icon="fa fa-compass" > Area</option>
-                <option value="app"  data-icon="fa fa-rocket" > Application</option>
-                <option value="username" data-icon="fa fa-user-circle" > User</option>
-            </select>
-          </div>
-        </div>
-      </form>
-
-    </div>
-  </div>
-  <div class="row">
-
-  </div>
-
-  <div class="row">
-
-
     <div class="col-lg-6">
       <h1><span class="badge badge-default form form-control form-input">Task Filters </span></h1>
       <form class="form" action="/chartFilter" method="post" id='chartForm'>
@@ -165,6 +136,7 @@
               <span class="fa fa-filter" title="Filter" aria-hidden="true"/>
             </button>
             <!-- group selection -->
+
             <div class=" form form-control">
               <p class='text-align: center;margin-top : 1px'>Grouping Criterion</p>
               <select name = "groupBy" class="selectpicker show-tick form form-control " data-live-search="true"  style="margin-bottom:1px" >

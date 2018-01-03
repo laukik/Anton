@@ -120,7 +120,7 @@
         <!-- user selection -->
         <div class="form form-control " style="margin-bottom:5px" >
           <p class='text-align: center;margin-top : 1px'>Users</p>
-          <select name = "username" class="selectpicker show-tick form form-control " data-actions-box="true" title="Select Username.." style="margin-bottom:1px" multiple>
+          <select name = "username" class="selectpicker show-tick form form-control " data-actions-box="true" data-live-search="true" title="Select Username.." style="margin-bottom:1px" multiple>
           <% for( var i = 0; i < users.length;i++){ %>
               <option value="<%= users[i].username %>"  > <%= users[i].username %>  </option>
             <% } %>
@@ -129,7 +129,7 @@
         <!-- task type selection -->
         <div class="form form-control " style="margin-bottom:5px" >
           <p class='text-align: center;margin-top : 1px'>Task Type</p>
-          <select name = "taskType" class="selectpicker show-tick form form-control " data-actions-box="true" title="Select Task Types..." style="margin-bottom:1px" multiple>
+          <select name = "taskType" class="selectpicker show-tick form form-control " data-actions-box="true" data-live-search="true" title="Select Task Types..." style="margin-bottom:1px" multiple>
             <% for( var i = 0; i < tasktypes.length;i++){ %>
               <option value="<%= tasktypes[i].taskType %>"> <%= tasktypes[i].taskType %> </option>
               <% } %>
@@ -158,7 +158,7 @@
         <!-- status selection -->
         <div class="  form form-control " style="margin-bottom:5px" >
           <p class='text-align: center;margin-top : 1px'>Status</p>
-          <select name = "status" class="selectpicker show-tick form form-control " data-actions-box="true" title="Select Status..."  style="margin-bottom:1px" multiple>
+          <select name = "status" class="selectpicker show-tick form form-control " data-actions-box="true" data-live-search="true" title="Select Status..."  style="margin-bottom:1px" multiple>
           <% for( var i = 0; i < status.length;i++){ %>
               <option value="<%= status[i].status %>"  > <%= status[i].status %>  </option>
             <% } %>
@@ -167,7 +167,7 @@
         <!-- Area Selection -->
         <div class=" form form-control " style="margin-bottom:5px" >
           <p class='text-align: center;margin-top : 1px'>Area</p>
-          <select name = "area" class="selectpicker show-tick form form-control " data-actions-box="true" title="Select Area..." style="margin-bottom:1px" multiple>
+          <select name = "area" class="selectpicker show-tick form form-control " data-actions-box="true" data-live-search="true" title="Select Area..." style="margin-bottom:1px" multiple>
           <% for( var i = 0; i < areas.length;i++){ %>
               <option value="<%= areas[i].area %>"  > <%= areas[i].area %>  </option>
             <% } %>
@@ -176,7 +176,7 @@
         <!-- Severity Selection -->
         <div class=" form form-control " style="margin-bottom:5px" >
           <p class='text-align: center;margin-top : 1px'>Severity</p>
-          <select name = "severity" class="selectpicker show-tick form form-control " data-actions-box="true" title="Select Severity..." style="margin-bottom:1px" multiple>
+          <select name = "severity" class="selectpicker show-tick form form-control " data-actions-box="true" data-live-search="true" title="Select Severity..." style="margin-bottom:1px" multiple>
           <% for( var i = 0; i < severity.length;i++){ %>
               <option value="<%= severity[i].severity %>"  > <%= severity[i].severity %>  </option>
             <% } %>
@@ -185,7 +185,7 @@
         <!-- Application Selection -->
         <div class=" form form-control " style="margin-bottom:5px" >
           <p class='text-align: center;margin-top : 1px'>Application</p>
-          <select name = "app" class="selectpicker show-tick form form-control " data-actions-box="true" title="Select Application..." style="margin-bottom:1px" multiple>
+          <select name = "app" class="selectpicker show-tick form form-control " data-actions-box="true" data-live-search="true" title="Select Application..." style="margin-bottom:1px" multiple>
           <% for( var i = 0; i < app.length;i++){ %>
               <option value="<%= app[i].app %>"  > <%= app[i].app %>  </option>
             <% } %>
@@ -246,6 +246,12 @@
     </div>
   </body>
   <script type="text/javascript">
+  $('.selectpicker').selectpicker({
+    //style : 'btn-info',
+    size : 25,
+    iconBase: 'fa',
+    tickIcon: 'fa-check-circle'
+  });
   $(document).ready( function () {
         $('.selectpicker').selectpicker({
           //style : 'btn-info',
