@@ -262,10 +262,16 @@
   </body>
   <script type="text/javascript">
     //$('.selectpicker').selectpicker();
+    $('.selectpicker').selectpicker({
+      //style : 'btn-info',
+      size : 25,
+      iconBase: 'fa',
+      tickIcon: 'fa-check-circle'
+    });
     $(document).ready( function () {
           $('.selectpicker').selectpicker({
             //style : 'btn-info',
-            size : 4,
+            size : 25,
             iconBase: 'fa',
             tickIcon: 'fa-check-circle'
           });
