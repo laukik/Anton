@@ -10,13 +10,64 @@
 <script src="js/dateTime.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js"></script>
 <script src="js/table2CSV.js"></script>
-  <script src="js\dependencies\sails.io.js" charset="utf-8"></script>
+<script src="js\dependencies\sails.io.js" charset="utf-8"></script>
+<script src="js/bootstrap-select.js" ></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
 <link href="styles/open-iconic/font/css/open-iconic-bootstrap.css" rel="stylesheet">
 <link href="https://use.fontawesome.com/releases/v5.0.1/css/all.css" rel="stylesheet">
 <link href="styles/dateTime.css" rel="stylesheet">
 <link href="styles/combo.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker.min.css">
+<link rel="stylesheet" href="styles/bootstrap-select.css">
+<style media="screen">
+  .dropdown-toggle.btn-default {
+  color: #292b2c;
+  background-color: #fff;
+  border-color: #ccc;
+  }
+  .bootstrap-select.show > .dropdown-menu > .dropdown-menu {
+  display: block;
+  }
+  .bootstrap-select > .dropdown-menu > .dropdown-menu li.hidden {
+  display: none;
+  }
+  .bootstrap-select > .dropdown-menu > .dropdown-menu li a {
+  display: block;
+  width: 100%;
+  padding: 3px 1.5rem;
+  clear: both;
+  font-weight: 400;
+  color: #292b2c;
+  text-align: inherit;
+  white-space: nowrap;
+  background: 0 0;
+  border: 0;
+  text-decoration: none;
+  }
+  .bootstrap-select > .dropdown-menu > .dropdown-menu li a:hover {
+  background-color: #f4f4f4;
+  }
+  .bootstrap-select > .dropdown-toggle {
+  width: 100%;
+  }
+  .dropdown-menu > li.active > a {
+  color: #fff !important;
+  background-color: #337ab7 !important;
+  }
+  .bootstrap-select .check-mark {
+  line-height: 14px;
+  }
+
+  .bootstrap-select button {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  }
+
+  /* Make filled out selects be the same size as empty selects */
+  .bootstrap-select.btn-group .dropdown-toggle .filter-option {
+  display: inline !important;
+  }
+</style>
 <body class="container" background='images/grey.png' >
   <ul class="nav nav-tabs">
     <li class="nav-item">
@@ -64,141 +115,154 @@
         <button type="submit" style="margin-bottom:5px" class="form form-control btn btn-success"> Filter
           <span class="fa fa-filter" title="Filter" aria-hidden="true"/>
         </button>
+        <!-- defect number selection -->
         <input class="form form-control form-input" style="margin-bottom:5px"  type="text"  placeholder="Defect ID" name="taskId" >
-        <div class="card checkbox form form-control" style="margin-bottom:5px" >
-          <label > <span class="fa fa-user-circle" title="Area" aria-hidden="true"/> User </label>
-          <br>
-          <label><input type="checkbox"  selected="selected" value="" name = "username" checked > All </label>
+        <!-- user selection -->
+        <div class="form form-control " style="margin-bottom:5px" >
+          <p class='text-align: center;margin-top : 1px'>Users</p>
+          <select name = "username" class="selectpicker show-tick form form-control " data-actions-box="true" title="Select Username.." style="margin-bottom:1px" multiple>
           <% for( var i = 0; i < users.length;i++){ %>
-            <label><input type="checkbox" value="<%= users[i].username %>" name = "username" > <%= users[i].username %> </label>
+              <option value="<%= users[i].username %>"  > <%= users[i].username %>  </option>
             <% } %>
-          </div>
-          <div class="card checkbox form form-control" style="margin-bottom:5px" >
-            <label > <span class="fa fa-check-square" title="Task Type" aria-hidden="true"/> Task Type </label>
-            <br>
-            <label><input type="checkbox"  selected="selected" value="" name = "taskType" checked > All </label>
+          </select>
+        </div>
+        <!-- task type selection -->
+        <div class="form form-control " style="margin-bottom:5px" >
+          <p class='text-align: center;margin-top : 1px'>Task Type</p>
+          <select name = "taskType" class="selectpicker show-tick form form-control " data-actions-box="true" title="Select Task Types..." style="margin-bottom:1px" multiple>
             <% for( var i = 0; i < tasktypes.length;i++){ %>
-              <label><input type="checkbox" value="<%= tasktypes[i].taskType %>" name = "taskType" > <%= tasktypes[i].taskType %> </label>
+              <option value="<%= tasktypes[i].taskType %>"> <%= tasktypes[i].taskType %> </option>
               <% } %>
-            </div>
-            <div class="card jumbotron">
-              <p class="lead"> Select Completion Date Range</p>
-              <label> From Date</label>
-              <div class='input-group date' id='datetimepicker1' style="margin-bottom:5px" >
-                <!-- <input type='text' class="form form-control form-input" required="true" placeholder="Completion Date" name="workDate"/> -->
-                <input class="datepicker form form-control form-input" data-date-format="dd/mm/yyyy" placeholder="From Date" name="fromDate"/>
-                <span class="input-group-addon">
-                  <span class="fa fa-calendar-plus"></span>
-                </span>
-              </div>
-              <label> Till Date</label>
-              <div class='input-group date' id='datetimepicker2' style="margin-bottom:5px" >
-                <!-- <input type='text' class="form form-control form-input" required="true" placeholder="Completion Date" name="workDate"/> -->
-                <input class="datepicker form form-control form-input" data-date-format="dd/mm/yyyy" placeholder="To Date" name="tillDate"/>
-                <span class="input-group-addon">
-                  <span class="fa fa-calendar-minus"></span>
-                </span>
-              </div>
+          </select>
+        </div>
+        <!-- Date Selection -->
+        <div class="form form-control ">
+          <p class="lead"> Select Completion Date Range</p>
+          <label> From Date</label>
+          <div class='input-group date' id='datetimepicker1' style="margin-bottom:5px" >
+            <!-- <input type='text' class="form form-control form-input" required="true" placeholder="Completion Date" name="workDate"/> -->
+            <input class="datepicker form form-control form-input" data-date-format="dd/mm/yyyy" placeholder="From Date" name="fromDate"/>
+            <span class="input-group-addon">
+              <span class="fa fa-calendar-plus"></span>
+            </span>
+          </div>
+          <label> Till Date</label>
+          <div class='input-group date' id='datetimepicker2' style="margin-bottom:5px" >
+            <!-- <input type='text' class="form form-control form-input" required="true" placeholder="Completion Date" name="workDate"/> -->
+            <input class="datepicker form form-control form-input" data-date-format="dd/mm/yyyy" placeholder="To Date" name="tillDate"/>
+            <span class="input-group-addon">
+              <span class="fa fa-calendar-minus"></span>
+            </span>
+          </div>
+        </div>
+        <!-- status selection -->
+        <div class="  form form-control " style="margin-bottom:5px" >
+          <p class='text-align: center;margin-top : 1px'>Status</p>
+          <select name = "status" class="selectpicker show-tick form form-control " data-actions-box="true" title="Select Status..."  style="margin-bottom:1px" multiple>
+          <% for( var i = 0; i < status.length;i++){ %>
+              <option value="<%= status[i].status %>"  > <%= status[i].status %>  </option>
+            <% } %>
+          </select>
+        </div>
+        <!-- Area Selection -->
+        <div class=" form form-control " style="margin-bottom:5px" >
+          <p class='text-align: center;margin-top : 1px'>Area</p>
+          <select name = "area" class="selectpicker show-tick form form-control " data-actions-box="true" title="Select Area..." style="margin-bottom:1px" multiple>
+          <% for( var i = 0; i < areas.length;i++){ %>
+              <option value="<%= areas[i].area %>"  > <%= areas[i].area %>  </option>
+            <% } %>
+          </select>
+        </div>
+        <!-- Severity Selection -->
+        <div class=" form form-control " style="margin-bottom:5px" >
+          <p class='text-align: center;margin-top : 1px'>Severity</p>
+          <select name = "severity" class="selectpicker show-tick form form-control " data-actions-box="true" title="Select Severity..." style="margin-bottom:1px" multiple>
+          <% for( var i = 0; i < severity.length;i++){ %>
+              <option value="<%= severity[i].severity %>"  > <%= severity[i].severity %>  </option>
+            <% } %>
+          </select>
+        </div>
+        <!-- Application Selection -->
+        <div class=" form form-control " style="margin-bottom:5px" >
+          <p class='text-align: center;margin-top : 1px'>Application</p>
+          <select name = "app" class="selectpicker show-tick form form-control " data-actions-box="true" title="Select Application..." style="margin-bottom:1px" multiple>
+          <% for( var i = 0; i < app.length;i++){ %>
+              <option value="<%= app[i].app %>"  > <%= app[i].app %>  </option>
+            <% } %>
+          </select>
+        </div>
+        <button type="submit" style="margin-top:8px" class="form form-control btn btn-success"> Filter
+          <span class="fa fa-filter" title="Filter" aria-hidden="true"/>
+        </button>
+      </form>
+    </div>
+    <div class="col-lg-8">
+      <h1><span class="badge badge-default form form-control form-input"> Tasks </span></h1>
+      <button class = 'form form-control btn btn-primary' id="export" data-export="export">
+        Export Data
+        <span class="fa fa-file-excel" title="Filter" aria-hidden="true"/>
+      </button>
+      <table class="table table-striped table-bordered table-hover" id='tableExp'>
+        <thead>
+        </tr>
+        <tr>
 
-            </div>
-
-            <div class="card checkbox form form-control" style="margin-bottom:5px" >
-              <label > <span class="fa fa-code" title="status" aria-hidden="true"/> Status </label>
-              <br>
-              <label><input type="checkbox"  selected="selected" value="" name = "status" checked > All </label>
-              <% for( var i = 0; i < status.length;i++){ %>
-                <label><input type="checkbox" value="<%= status[i].status %>" name = "status" > <%= status[i].status %> </label>
-                <% } %>
-              </div>
-              <div class="card checkbox form form-control" style="margin-bottom:5px" >
-                <label > <span class="fa fa-compass" title="Area" aria-hidden="true"/> Area </label>
-                <br>
-                <label><input type="checkbox"  selected="selected" value="" name = "area" checked > All </label>
-                <% for( var i = 0; i < areas.length;i++){ %>
-                  <label><input type="checkbox" value="<%= areas[i].area %>" name = "area" > <%= areas[i].area %> </label>
-                  <% } %>
-                </div>
-                <div class="card checkbox form form-control" style="margin-bottom:5px" >
-                  <label > <span class="fa fa-compass" title="Area" aria-hidden="true"/> Severity </label>
-                  <br>
-                  <label><input type="checkbox"  selected="selected" value="" name = "severity" checked > All </label>
-                  <% for( var i = 0; i < severity.length;i++){ %>
-                    <label><input type="checkbox" value="<%= severity[i].severity %>" name = "severity" > <%= severity[i].severity %> </label>
-                    <% } %>
-                </div>
-                <div class="card checkbox form form-control" style="margin-bottom:5px" >
-                  <label > <span class="fa fa-rocket" title="Application" aria-hidden="true"/> Application </label>
-                  <br>
-                  <label><input type="checkbox"  selected="selected" value="" name = "app" checked > All </label>
-                  <% for( var i = 0; i < app.length;i++){ %>
-                    <label><input type="checkbox" value="<%= app[i].app %>" name = "app" > <%= app[i].app %> </label>
-                    <% } %>
-                </div>
-                  <button type="submit" style="margin-top:8px" class="form form-control btn btn-success"> Filter
-                    <span class="fa fa-filter" title="Filter" aria-hidden="true"/>
-                  </button>
-                </form>
-              </div>
-              <div class="col-lg-8">
-                <h1><span class="badge badge-default form form-control form-input"> Tasks </span></h1>
-                <button class = 'form form-control btn btn-primary' id="export" data-export="export">
-                  Export Data
-                  <span class="fa fa-file-excel" title="Filter" aria-hidden="true"/>
-                </button>
-                <table class="table table-striped table-bordered table-hover" id='tableExp'>
-                  <thead>
-                  </tr>
-                  <tr>
-
-                    <th> User Name</th>
-                    <th> Task Type</th>
-                    <th> Completion Date</th>
-                    <th> Description</th>
-                    <th> Status</th>
-                    <th> Area</th>
-                    <th> Severity</th>
-                    <th> Application</th>
-                    <th> Defect ID</th>
-                    <th> Hours</th>
-                  </thead>
-                  <tbody>
-                    <% for( var i = 0 ; i < tasks.length; i ++){ %>
-                      <!-- <span class="badge badge-primary"> -->
-                      <tr>
-                        <td><%= tasks[i].username %></td>
-                        <td><%= tasks[i].taskType %></td>
-                        <td><%= tasks[i].workDate.toDateString() %></td>
-                        <td><%= tasks[i].description %></td>
-                        <td><%= tasks[i].status %></td>
-                        <td><%= tasks[i].area %></td>
-                        <td><%= tasks[i].severity %></td>
-                        <td><%= tasks[i].app %></td>
-                        <td><%= tasks[i].taskId %></td>
-                        <td>
-                          <%if( tasks[i].timeTaken != undefined){%>
-                          <%= tasks[i].timeTaken %>
-                          <%}else{%>
-                            NA
-                          <%}%>
-                        </td>
-                      </tr>
-                      <% } %>
-                    </tbody>
-                  </table>
-                </div>
-
-              </div>
-            </body>
-            <script type="text/javascript">
-            // $(function () {
-            //   $('#datetimepicker1').datetimepicker();
-            // });
-            $("#export").click(function(){
-              $("#tableExp").tableToCSV();
-            });
-            $('.datepicker').datepicker({
-              format: 'dd/mm/yyyy'
-            });
-            // .datepicker('setDate', new Date());
-            </script>
-            </html>
+          <th> User Name</th>
+          <th> Task Type</th>
+          <th> Completion Date</th>
+          <th> Description</th>
+          <th> Status</th>
+          <th> Area</th>
+          <th> Severity</th>
+          <th> Application</th>
+          <th> Defect ID</th>
+          <th> Hours</th>
+        </thead>
+        <tbody>
+          <% for( var i = 0 ; i < tasks.length; i ++){ %>
+            <!-- <span class="badge badge-primary"> -->
+            <tr>
+              <td><%= tasks[i].username %></td>
+              <td><%= tasks[i].taskType %></td>
+              <td><%= tasks[i].workDate.toDateString() %></td>
+              <td><%= tasks[i].description %></td>
+              <td><%= tasks[i].status %></td>
+              <td><%= tasks[i].area %></td>
+              <td><%= tasks[i].severity %></td>
+              <td><%= tasks[i].app %></td>
+              <td><%= tasks[i].taskId %></td>
+              <td>
+                <%if( tasks[i].timeTaken != undefined){%>
+                <%= tasks[i].timeTaken %>
+                <%}else{%>
+                  NA
+                <%}%>
+              </td>
+            </tr>
+            <% } %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </body>
+  <script type="text/javascript">
+  $(document).ready( function () {
+        $('.selectpicker').selectpicker({
+          //style : 'btn-info',
+          size : 25,
+          iconBase: 'fa',
+          tickIcon: 'fa-check-circle'
+        });
+  });
+  // $(function () {
+  //   $('#datetimepicker1').datetimepicker();
+  // });
+  $("#export").click(function(){
+    $("#tableExp").tableToCSV();
+  });
+  $('.datepicker').datepicker({
+    format: 'dd/mm/yyyy'
+  });
+  // .datepicker('setDate', new Date());
+  </script>
+</html>
