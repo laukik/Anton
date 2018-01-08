@@ -122,17 +122,14 @@
       </a>
     </li>
   </ul>
-  <br/>
-  <br/>
 
-  <div class="row">
-    <div class="col-lg-12">
-      <form class="form" action="/chartFilter" method="post" id='chartForm'>
-        <div class="col-lg-3">
+
+  <div class="row" style="margin-top:5px">
+      <form class="form-inline" action="/chartFilter" method="post" id='chartForm'>
+        <div class="col">
           <!-- group selection -->
-          <div class=" form form-control">
-            <p class='text-align: center;margin-top : 1px'>Grouping Criterion</p>
-            <select name = "groupBy" class="selectpicker show-tick form form-control " data-live-search="true"  style="margin-bottom:1px" >
+          <div class="form-group ">
+            <select name = "groupBy" class="selectpicker show-tick form form-control " data-live-search="true"   >
                 <!-- <option value="" ></option> -->
                 <option value="severity" data-icon="fa fa-exclamation-circle" > Severity</option>
                 <option value="taskType" data-icon="fa fa-bug" > Task Type</option>
@@ -143,126 +140,85 @@
             </select>
           </div>
         </div>
-      </form>
-
-    </div>
-  </div>
-  <div class="row">
-
-  </div>
-
-  <div class="row">
-
-
-    <div class="col-lg-6">
-      <h1><span class="badge badge-default form form-control form-input">Task Filters </span></h1>
-      <form class="form" action="/chartFilter" method="post" id='chartForm'>
-      <!-- filter Data -->
-        <div class="row">
-          <div class="col-lg-6">
-            <!-- button for filter -->
-            <button type="submit" style="margin-bottom:5px" class="form form-control btn btn-success"> Filter
-              <span class="fa fa-filter" title="Filter" aria-hidden="true"/>
-            </button>
-            <!-- group selection -->
-            <div class=" form form-control">
-              <p class='text-align: center;margin-top : 1px'>Grouping Criterion</p>
-              <select name = "groupBy" class="selectpicker show-tick form form-control " data-live-search="true"  style="margin-bottom:1px" >
-                  <!-- <option value="" ></option> -->
-                  <option value="severity" data-icon="fa fa-exclamation-circle" > Severity</option>
-                  <option value="taskType" data-icon="fa fa-bug" > Task Type</option>
-                  <option value="status"  data-icon="fa fa-code" > Status </option>
-                  <option value="area" data-icon="fa fa-compass" > Area</option>
-                  <option value="app"  data-icon="fa fa-rocket" > Application</option>
-                  <option value="username" data-icon="fa fa-user-circle" > User</option>
-              </select>
-            </div>
-            <!-- task type selection -->
-            <div class="form form-control " style="margin-bottom:5px" >
-              <p class='text-align: center;margin-top : 1px'>Task Type</p>
-              <select name = "taskType" class="selectpicker show-tick form form-control " data-actions-box="true" data-live-search="true" title="Select Task Types..." style="margin-bottom:1px" multiple>
-                <% for( var i = 0; i < tasktypes.length;i++){ %>
-                  <option value="<%= tasktypes[i].taskType %>"> <%= tasktypes[i].taskType %> </option>
-                  <% } %>
-              </select>
-            </div>
-
-
-            <!-- status selection -->
-            <div class="  form form-control " style="margin-bottom:5px" >
-              <p class='text-align: center;margin-top : 1px'>Status</p>
-              <select name = "status" class="selectpicker show-tick form form-control " data-actions-box="true" data-live-search="true" title="Select Status..."  style="margin-bottom:1px" multiple>
-              <% for( var i = 0; i < status.length;i++){ %>
-                  <option value="<%= status[i].status %>"  > <%= status[i].status %>  </option>
-                <% } %>
-              </select>
-            </div>
-
-            <!-- Severity Selection -->
-            <div class=" form form-control " style="margin-bottom:5px" >
-              <p class='text-align: center;margin-top : 1px'>Severity</p>
-              <select name = "severity" class="selectpicker show-tick form form-control " data-actions-box="true" data-live-search="true" title="Select Severity..." style="margin-bottom:1px" multiple>
-              <% for( var i = 0; i < severity.length;i++){ %>
-                  <option value="<%= severity[i].severity %>"  > <%= severity[i].severity %>  </option>
-                <% } %>
-              </select>
-            </div>
-            <!-- Application Selection -->
-            <div class=" form form-control " style="margin-bottom:5px" >
-              <p class='text-align: center;margin-top : 1px'>Application</p>
-              <select name = "app" class="selectpicker show-tick form form-control " data-actions-box="true" data-live-search="true" title="Select Application..." style="margin-bottom:1px" multiple>
-              <% for( var i = 0; i < app.length;i++){ %>
-                  <option value="<%= app[i].app %>"  > <%= app[i].app %>  </option>
-                <% } %>
-              </select>
-            </div>
-          </div>
-          <div class="col-lg-6">
-            <!-- user selection -->
-            <div class="form form-control " style="margin-bottom:5px" >
-              <p class='text-align: center;margin-top : 1px'>Users</p>
-              <select name = "username" class="selectpicker show-tick form form-control " data-actions-box="true" data-live-search="true" title="Select Username.." style="margin-bottom:1px" multiple>
-              <% for( var i = 0; i < users.length;i++){ %>
-                  <option value="<%= users[i].username %>"  > <%= users[i].username %>  </option>
-                <% } %>
-              </select>
-            </div>
-            <!-- Area Selection -->
-            <div class=" form form-control " style="margin-bottom:5px" >
-              <p class='text-align: center;margin-top : 1px'>Area</p>
-              <select name = "area" class="selectpicker show-tick form form-control " data-actions-box="true" data-live-search="true" title="Select Area..." style="margin-bottom:1px" multiple>
-              <% for( var i = 0; i < areas.length;i++){ %>
-                  <option value="<%= areas[i].area %>"  > <%= areas[i].area %>  </option>
-                <% } %>
-              </select>
-            </div>
-            <!-- Date selection -->
-            <div class="form form-control">
-
-              <div class='input-group date' id='datetimepicker1' style="margin-bottom:5px" >
-                <!-- <input type='text' class="form form-control form-input" required="true" placeholder="Completion Date" name="workDate"/> -->
-                <input class="datepicker form form-control form-input" data-date-format="dd/mm/yyyy" placeholder="From Date" name="fromDate"/>
-                <span class="input-group-addon">
-                  <span class="fa fa-calendar-plus"></span>
-                </span>
-              </div>
-
-              <div class='input-group date' id='datetimepicker2' style="margin-bottom:1px" >
-                <!-- <input type='text' class="form form-control form-input" required="true" placeholder="Completion Date" name="workDate"/> -->
-                <input class="datepicker form form-control form-input" data-date-format="dd/mm/yyyy" placeholder="To Date" name="tillDate"/>
-                <span class="input-group-addon">
-                  <span class="fa fa-calendar-minus"></span>
-                </span>
-              </div>
-            </div>
-            <!-- Button Again -->
-            <button type="submit" style="margin-top:8px" class="form form-control btn btn-success"> Filter
-              <span class="fa fa-filter" title="Filter" aria-hidden="true"/>
-            </button>
-          </div>
+        <div class="col">
+          <!-- task type selection -->
+          <select name = "taskType" class="selectpicker show-tick form form-control " data-actions-box="true" data-live-search="true" title="Task Types"  multiple>
+            <% for( var i = 0; i < tasktypes.length;i++){ %>
+              <option value="<%= tasktypes[i].taskType %>"> <%= tasktypes[i].taskType %> </option>
+              <% } %>
+          </select>
         </div>
-    </div>
-    <div class="col-lg-6" >
+        <!-- status selection -->
+        <div class="col"  >
+          <select name = "status" class="selectpicker show-tick form form-control " data-actions-box="true" data-live-search="true" title="Status"  style="margin-bottom:1px" multiple>
+          <% for( var i = 0; i < status.length;i++){ %>
+              <option value="<%= status[i].status %>"  > <%= status[i].status %>  </option>
+            <% } %>
+          </select>
+        </div>
+        <!-- Severity Selection -->
+        <div class="col"  >
+          <select name = "severity" class="selectpicker show-tick form form-control " data-actions-box="true" data-live-search="true" title="Severity" style="margin-bottom:1px" multiple>
+          <% for( var i = 0; i < severity.length;i++){ %>
+              <option value="<%= severity[i].severity %>"  > <%= severity[i].severity %>  </option>
+            <% } %>
+          </select>
+        </div>
+        <!-- Application Selection -->
+        <div class="col"  >
+          <select name = "app" class="selectpicker show-tick form form-control " data-actions-box="true" data-live-search="true" title="Application" style="margin-bottom:1px" multiple>
+          <% for( var i = 0; i < app.length;i++){ %>
+              <option value="<%= app[i].app %>"  > <%= app[i].app %>  </option>
+            <% } %>
+          </select>
+        </div>
+        <!-- user selection -->
+        <div class="col"  >
+          <select name = "username" class="selectpicker show-tick form form-control " data-actions-box="true" data-live-search="true" title="Username" style="margin-bottom:1px" multiple>
+          <% for( var i = 0; i < users.length;i++){ %>
+              <option value="<%= users[i].username %>"  > <%= users[i].username %>  </option>
+            <% } %>
+          </select>
+        </div>
+        <!-- Area Selection -->
+        <div class="col"  >
+          <select name = "area" class="selectpicker show-tick form form-control " data-actions-box="true" data-live-search="true" title="Area" style="margin-bottom:1px" multiple>
+          <% for( var i = 0; i < areas.length;i++){ %>
+              <option value="<%= areas[i].area %>"  > <%= areas[i].area %>  </option>
+            <% } %>
+          </select>
+        </div>
+        <!-- Date selection -->
+        <div class='col input-group date' id='datetimepicker1' style="margin-bottom:5px" >
+          <!-- <input type='text' class="form form-control form-input" required="true" placeholder="Completion Date" name="workDate"/> -->
+          <input class="datepicker form form-control form-input" data-date-format="dd/mm/yyyy" placeholder="From Date" name="fromDate"/>
+          <span class="input-group-addon">
+            <span class="fa fa-calendar-plus"></span>
+          </span>
+        </div>
+
+        <div class='col input-group date' id='datetimepicker2' style="margin-bottom:1px" >
+          <!-- <input type='text' class="form form-control form-input" required="true" placeholder="Completion Date" name="workDate"/> -->
+          <input class="datepicker form form-control form-input" data-date-format="dd/mm/yyyy" placeholder="To Date" name="tillDate"/>
+          <span class="input-group-addon">
+            <span class="fa fa-calendar-minus"></span>
+          </span>
+        </div>
+
+      <!-- Button Again -->
+      <div class="col"  >
+        <button type="submit" style="margin-top:8px" class="form form-control btn btn-success"> Filter
+          <span class="fa fa-filter" title="Filter" aria-hidden="true"/>
+        </button>
+      </div>
+    </form>
+  </div>
+  <div class="row">
+
+  </div>
+
+  <div class="row">
+    <div class="col-lg-7" >
       <div class="row">
         <% if ( Object.keys( chartData ).length != 0  ) { %>
           <div class="col-lg-8" >
