@@ -26,8 +26,19 @@ module.exports = {
 		var whereClause = {};
 		Object.keys(filter).forEach((key) => (filter[key] == null || filter[key] == '' || filter[key] == "" || filter[key] == undefined ) && delete filter[key]);
 		delete filter["fromDate"];
-		delete filter["tillDate"]
+		delete filter["tillDate"];
 		//console.log(filter);
+		if( Object.keys( criterion ).length == 0 ){
+			//check if interval was passed
+			var interval = filter['interval'];
+			if( interval){
+				var today = new Date();
+    		var from = new Date(today.getFullYear(), today.getMonth(), today.getDate() - interval);
+				criterion[">="] = from;
+				criterion["<="] = today;
+				delete filter["interval"];
+			}
+		}
 		var query = Task.find(filter);
 		if( Object.keys( criterion ).length != 0){
 					whereClause["workDate"] = criterion;
